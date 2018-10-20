@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nuevo Paciente</title>
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css" rel="stylesheet" type="text/css" /></head>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script> 
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0//js/froala_editor.pkgd.min.js"></script>
+  <link rel="stylesheet" href="css/estilo.css">
+  <link href="https://fonts.googleapis.com/css?family=calibri:100,600" rel="stylesheet" type="text/css">
+
+  <style>
+    .top-right{
+                position: absolute;
+                right: 18px;
+                top: 10px;
+            }
+
+    .links > a {
+                color: rgb(54, 42, 228);
+                padding: 0 25px;
+                font-size: 18px;
+                font-weight: normal;
+                font-family: 'calibri', sans-serif;
+                letter-spacing: .1rem;
+                text-decoration: none;
+            }
+
+    body{
+        font-size: 18px;
+        font-family: 'calibri';
+        width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+    <div class="top-right links">
+      <a href="home.html">Principal</a>
+    </div>
+
+  <form action="paciente.php" method="post">
+		<div class="c-form-container section-container section-container-image-bg">
+	    <div class="container">
+	            
+	      <div class="row">
+	        <div class="col-sm-7 col-sm-offset-2 c-form-box wow fadeInUp">
+	            		
+	          <div class="c-form-top">
+              <div class="c-form-top-left">
+                <h3 style="color: rgb(54, 42, 228);">Nuevo Paciente</h3>
+              </div>
+            </div>
+
+            <div class="c-form-bottom">
+		        <div class="form-group">
+		            <div style="font-family: 'Calibri'; font-size: 18px;">
+                        <p>Apellido y nombre</p> 
+                      </div>
+		            <input name="nombreapellido" placeholder="..." class="c-form-name form-control" id="c-form-ApellidoNombre">
+		        </div>
+                        
+                <div class="form-group">
+                    <div style="font-family: 'Calibri'; font-size: 18px;">
+                        <p>N° de documento</p> 
+                      </div>
+                    <label>
+                        <input type="number" name="documento" placeholder="..." class="c-form-name form-control" id="c-form-documento">
+                    </label>
+                </div>
+
+                <select NAME="sexo" style="font-family: 'Calibri'; font-size: 18px;" >
+                    <option value="Sexo">Sexo</option>
+                    <option value="Femenino" >Femenino</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Otros" >Otros</option>
+                </select>
+                <br><br>
+                
+                <div class="form-group">
+                    <div style="font-family: 'Calibri'; font-size: 18px;">
+                        <p>Fecha de nacimiento</p> 
+                      </div>
+                    <input type="date" name="nacimiento" placeholder="..." class="c-form-name form-control" id="c-form-nacimiento">
+                </div>
+               
+                <div class="form-group">
+                    <div style="font-family: 'Calibri'; font-size: 18px;">
+                        <p>Edad</p> 
+                      </div>
+                    <input type="number" name="edad" placeholder="..." class="c-form-name form-control" id="c-form-edad">
+                </div>
+
+                <div class="form-group">
+                    <div style="font-family: 'Calibri'; font-size: 18px;">
+                        <p>Localidad</p> 
+                      </div>
+                    <input name="localidad" placeholder="..." class="c-form-name form-control" id="c-form-localidad">
+                </div>
+
+                <div class="form-group">
+                    <div style="font-family: 'Calibri'; font-size: 18px;">
+                        <p>Domicilio</p> 
+                      </div>
+                    <input name="domicilio" placeholder="..." class="c-form-name form-control" id="c-form-domicilio">
+                </div>
+
+                <div class="form-group">
+                    <div style="font-family: 'Calibri'; font-size: 18px;">
+                        <p>Celular</p> 
+                      </div>
+                    <input type="tel" name="celular" placeholder="..." class="c-form-name form-control" id="c-form-celular">
+                </div>
+
+                <div class="form-group">
+                    <div style="font-family: 'Calibri'; font-size: 18px;">
+                        <p>E-mail</p> 
+                      </div>
+                    <input name="mail" placeholder="..." class="c-form-name form-control" id="c-form-mail">
+                </div>
+
+                <div align="center">
+                  <input type="submit" style="font-family: 'Calibri'; font-size: 18px;" name="guardar" class="btn btn-success" value="Guardar Paciente">
+                </div>
+
+                <br>
+
+              </form>
+            </div> 
+
+        </div>
+      </div>
+</body>
+
+</html>
