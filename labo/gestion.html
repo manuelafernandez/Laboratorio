@@ -1,10 +1,5 @@
 <!DOCTYPE html>
 
-<?php
-    session_start();
-    $nombreapellido = $_SESSION["nombreapellido"];
-?>
-
 <html lang="en">
 
 <head>
@@ -106,7 +101,13 @@
         <p>Fecha: <input type="date" name="fecha"></p> 
       </div>
       <div style="font-family: 'Calibri'; font-size: 18px;">
-         <p>Apellido y nombre: </p>
+         <p>Apellido y nombre: 
+             <?php
+                session_start();
+                $nombreapellido = $_POST["DNI"];
+                echo $nombreapellido;
+             ?>
+        </p>
       </div>
     </div>
 
@@ -333,17 +334,16 @@
       <tr>
           <td><ul><li type="disc">Globulinas Totales</li></ul></td>
           <td ALIGN=center><input type="checkbox" name="checkGlobulinas"></td>
-          <td ALIGN=center><input type="text" name="resultGlobulinas"></td>
+          <td ALIGN=center></td>
       </tr>
 
       <tr>
           <td><ul><li type="disc">Relacion Albumina/Globulina</li></ul></td>
           <td ALIGN=center><input type="checkbox" name="checkRelacionAG"></td>
-          <td ALIGN=center><input type="text" name="resultRelacionAG"></td>
+          <td ALIGN=center></td>
       </tr>
 
-      
-    <tr>
+     <tr>
         <td>ALFA AMILASA</td>
         <td ALIGN=center><input type="checkbox" name="checkAlfaAmilasa"></td>
         <td ALIGN=center><input type="text" name="resultAlfaAmilasa"></td>
@@ -374,7 +374,7 @@
       </tr>
 
       <tr>
-          <td>Ionigrama Plasmatico</td>
+          <td>Ionograma Plasmatico</td>
           <td ALIGN=center><input type="checkbox" name="checkIonograma"></td>
           <td ALIGN=center></td>
       </tr>
@@ -1026,33 +1026,52 @@
             <td ALIGN=center><input type="text" name="resultB2M"></td>
         </tr>
         <tr>
-                <td>Proteinogroma Electroforetico</td>
+                <td>PROTEINOGROMA ELECTROFFORETICO</td>
                 <td ALIGN=center><input type="checkbox" name="checkPE"></td>
-                <td ALIGN=center><input type="text" name="resultPE"></td>
+                <td ALIGN=center></td>
             </tr>
 
-        <tr>
-                    <td>Alfa -1 globulina</td>
-                    <td ALIGN=center><input type="checkbox" name="checkA1G"></td>
-                    <td ALIGN=center><input type="text" name="resultA1G"></td>
-        </tr>
-        <tr>
-                <td>Alfa -2 globulina</td>
-                <td ALIGN=center><input type="checkbox" name="checkA2G"></td>
-                <td ALIGN=center><input type="text" name="resultA2G"></td>
-      </tr>
+            <tr>
+                <td>Proteinas Totales</td>
+                <td ALIGN=center><input type="checkbox" name="checkProteinasPE"></td>
+                <td ALIGN=center><input type="text" name="resultProteinasPE"></td>
+            </tr>
+      
+            <tr>
+                <td>Albumina</td>
+                <td ALIGN=center><input type="checkbox" name="checkAlbuminaPE"></td>
+                <td ALIGN=center><input type="text" name="resultAlbuminaPE"><input type="text" name="resultAlbuminaPE1"></td>
+            </tr>       
+     <tr>
+        <td>Alfa-1 GLOBULINA</td>
+        <td ALIGN=center><input type="checkbox" name="checkA1G"></td>
+        <td ALIGN=center><input type="text" name="resultA1G1"><input type="text" name="resultA1G2"></td>
+</tr>
+<tr>
+    <td>Alfa-2 GLOBULINS</td>
+    <td ALIGN=center><input type="checkbox" name="checkA2G"></td>
+    <td ALIGN=center><input type="text" name="resultA2G1"><input type="text" name="resultA2G2"></td>
+   
+</tr>
 
-    <tr>
-            <td>Beta- globulinas</td>
-            <td ALIGN=center><input type="checkbox" name="checkBG"></td>
-            <td ALIGN=center><input type="text" name="resultBG"></td>
-    </tr>
-    <tr>
-            <td>Gamma globulinas</td>
-            <td ALIGN=center><input type="checkbox" name="checkGG"></td>
-            <td ALIGN=center><input type="text" name="resultGG"></td>
-    </tr>
+<tr>
+<td>Beta-1 GLOBULINA</td>
+<td ALIGN=center><input type="checkbox" name="checkB1G"></td>
+<td ALIGN=center><input type="text" name="resultB1G1"><input type="text" name="resultB1G2"></td>
 
+</tr>
+
+<tr>
+<td>Beta-2 GLOBULINA</td>
+<td ALIGN=center><input type="checkbox" name="checkB2G"></td>
+<td ALIGN=center><input type="text" name="resultB2G1"><input type="text" name="resultB2G2"></td>
+</tr>
+<tr>
+<td>GAMMA GLOBULINA</td>
+<td ALIGN=center><input type="checkbox" name="checkGG"></td>
+<td ALIGN=center><input type="text" name="resultGG1"><input type="text" name="resultGG2"></td>
+</tr>   
+      
     <tr>
             <td>CULTIVO PARA MYCOPLASMA HOMINIS</td>
             <td ALIGN=center><input type="checkbox" name="checkMycoplasma"></td>
@@ -1279,9 +1298,15 @@
     </tr>
 
     <tr>
-        <td>Hepatitis B Antigeno de Superficie (HBS Ag)</td>
-        <td ALIGN=center><input type="checkbox" name="checkHBS"></td>
-        <td ALIGN=center><input type="text" name="resultHBS"></td>
+        <td>Hepatitis B Antigeno de Superficie (HBS Ag) <br> Metodo: Inmunocrografico</td>
+        <td ALIGN=center><input type="checkbox" name="checkHBSI"></td>
+        <td ALIGN=center><input type="text" name="resultHBSI"></td>
+    </tr>
+
+    <tr>
+        <td>Hepatitis B Antigeno de Superficie (HBS Ag) <br> Metodo: Quimioluminiscencia</td>
+        <td ALIGN=center><input type="checkbox" name="checkHBSQ"></td>
+        <td ALIGN=center><input type="text" name="resultHBSQ"></td>
     </tr>
 
 
@@ -1442,6 +1467,46 @@
         <td ALIGN=center><input type="text" name="resultHIV"></td>
     </tr>
 
+    <tr>
+        <td>Insulina (Basal)</td>
+        <td ALIGN=center><input type="checkbox" name="checkInsulina"></td>
+        <td ALIGN=center><input type="text" name="resultInsulina"></td>
+    </tr>
+
+    <tr>
+        <td>Homocisteina (Plasmatica)</td>
+        <td ALIGN=center><input type="checkbox" name="checkHomocisteina"></td>
+        <td ALIGN=center><input type="text" name="resultHomocisteina"></td>
+    </tr>
+
+    <tr>
+        <td>SOMF - Sangre Oculta en Materia Fecal</td>
+        <td ALIGN=center><input type="checkbox" name="checkSOMF"></td>
+        <td ALIGN=center><input type="text" name="resultSOMF"></td>
+    </tr>
+
+    <tr>
+        <td>DMF - Directo Materia Fecal</td>
+        <td ALIGN=center><input type="checkbox" name="checkDMF"></td>
+        <td ALIGN=center><input type="text" name="resultDMF"></td>
+    </tr>
+    <tr>
+        <td>Parasitologico seriado</td>
+        <td ALIGN=center><input type="checkbox" name="checkPS"></td>
+        <td ALIGN=center></td>
+    </tr>
+
+    <tr>
+        <td><ul><li type="disc">Test de Graham</li></ul></td>
+        <td ALIGN=center><input type="checkbox" name="checkTestGraham"></td>
+        <td ALIGN=center><input type="text" name="resultTestGraham"></td>
+    </tr>
+
+    <tr>
+        <td><ul><li type="disc">Materia Fecal</li></ul></td>
+        <td ALIGN=center><input type="checkbox" name="checkMateriaFecal"></td>
+        <td ALIGN=center><input type="text" name="resultMateriaFecal"></td>
+    </tr>
     </table>
   
     
