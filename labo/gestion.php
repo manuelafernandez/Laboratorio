@@ -2895,6 +2895,22 @@ if($pdf->getY()+5>250){
     $pdf->Ln(7);
   }
 
+  if(!isset($_POST['checkVDRL'])) { // Comprobamos si el nombre esta vacio
+    // Aqui saltaria el error ya que el campo nombre esta vacio
+}else {
+    $pdf->Ln(5);
+    $pdf->SetFont('courier', '', 12);
+    $nombre = 'V.D.R.L TEST                         : $ '.$_POST['resultVDRL']."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '         Método: Floculacion'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+}
+if($pdf->getY()+5>250){
+    $pdf->addPage();
+    $pdf->Ln(7);
+  }
   //--------------------------------------------------------------------------------------------
   if(!isset($_POST['checkPTH'])) { // Comprobamos si el nombre esta vacio
     // Aqui saltaria el error ya que el campo nombre esta vacio
@@ -2975,6 +2991,23 @@ if(!isset($_POST['checkInsulina'])) { // Comprobamos si el nombre esta vacio
     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
     $pdf->SetFont('courier', '', 8);
     $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: 3.0 - 25.0 UI/ml'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+}
+if($pdf->getY()+5>250){
+    $pdf->addPage();
+    $pdf->Ln(7);
+  }
+
+  if(!isset($_POST['checkHoma'])) { // Comprobamos si el nombre esta vacio
+    // Aqui saltaria el error ya que el campo nombre esta vacio
+}else {
+    $pdf->Ln(5);
+    $pdf->SetFont('courier', '', 12);
+    $nombre = 'Indice de resistencia a la insulina (HOMA-IR) : '.$_POST['resultHoma']."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '         Valor de referencia: inferior a 2.15'."\n";
     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
     $pdf->SetFont('courier', '', 12);
 }
