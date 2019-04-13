@@ -2876,6 +2876,23 @@ if($pdf->getY()+5>250){
     $pdf->Ln(7);
   }
   
+  if(!isset($_POST['checkVDRL'])) { // Comprobamos si el nombre esta vacio
+    // Aqui saltaria el error ya que el campo nombre esta vacio
+}else {
+    $pdf->Ln(5);
+    $pdf->SetFont('courier', '', 12);
+    $nombre = 'V.D.R.L TEST                         :  '.$_POST['resultVDRL']."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '         Método: Floculacion'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+}
+if($pdf->getY()+5>250){
+    $pdf->addPage();
+    $pdf->Ln(7);
+  }
+  
 //------------------------------------------------------------------------------------------
 
   if(!isset($_POST['checkBAAR'])) { // Comprobamos si el nombre esta vacio
@@ -2895,22 +2912,7 @@ if($pdf->getY()+5>250){
     $pdf->Ln(7);
   }
 
-  if(!isset($_POST['checkVDRL'])) { // Comprobamos si el nombre esta vacio
-    // Aqui saltaria el error ya que el campo nombre esta vacio
-}else {
-    $pdf->Ln(5);
-    $pdf->SetFont('courier', '', 12);
-    $nombre = 'V.D.R.L TEST                         : $ '.$_POST['resultVDRL']."\n";
-    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
-    $pdf->SetFont('courier', '', 8);
-    $nombre = '         Método: Floculacion'."\n";
-    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-    $pdf->SetFont('courier', '', 12);
-}
-if($pdf->getY()+5>250){
-    $pdf->addPage();
-    $pdf->Ln(7);
-  }
+ 
   //--------------------------------------------------------------------------------------------
   if(!isset($_POST['checkPTH'])) { // Comprobamos si el nombre esta vacio
     // Aqui saltaria el error ya que el campo nombre esta vacio
