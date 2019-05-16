@@ -10,7 +10,7 @@
         $documento = $_POST["documento"];
         $sexo = $_POST["sexo"];
         $nacimiento = $_POST["nacimiento"];
-        $e = $_POST["edad"];
+        $e = 0;
         $edad = busca_edad($e); //VERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
         $localidad = $_POST["localidad"];
         $domicilio = $_POST["domicilio"];

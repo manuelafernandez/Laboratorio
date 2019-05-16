@@ -538,6 +538,35 @@
       <tr>
         <td>
           <ul>
+            <li type="disc">Volumen 24 hs.</li>
+          </ul>
+        </td>
+        <td ALIGN=center><input type="checkbox" name="checkVol24hs"></td>
+        <td ALIGN=center><input type="text" name="resultVol24hs"></td>
+      </tr>
+      <td>
+        <ul>
+          <li type="disc">Peso</li>
+        </ul>
+      </td>
+      <td ALIGN=center><input type="checkbox" name="checkPeso"></td>
+      <td ALIGN=center><input type="text" name="resultPeso"></td>
+      </tr>
+
+      <tr>
+        <td>
+          <ul>
+            <li type="disc">Altura</li>
+          </ul>
+        </td>
+        <td ALIGN=center><input type="checkbox" name="checkAltura"></td>
+        <td ALIGN=center><input type="text" name="resultAltura"></td>
+      </tr>
+      <tr>
+
+
+        <td>
+          <ul>
             <li type="disc">Dosaje de calcio en orina</li>
           </ul>
         </td>
@@ -545,17 +574,7 @@
         <td ALIGN=center><input type="text" name="resultDosajeCO"></td>
       </tr>
 
-      <tr>
-        <td>
-          <ul>
-            <ul>
-              <li type="circle">Volumen de 24 hs.</li>
-            </ul>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultVolumenDCO"></td>
-      </tr>
+
 
       <tr>
         <td>
@@ -570,7 +589,7 @@
       <tr>
         <td>
           <ul>
-            <li type="disc">Magnesio en orina</li>
+            <li type="disc">Dosaje de magnesio en orina</li>
           </ul>
         </td>
         <td ALIGN=center><input type="checkbox" name="checkMagnesioO"></td>
@@ -590,18 +609,6 @@
       <tr>
         <td>
           <ul>
-            <ul>
-              <li type="circle">Volumen de 24 hs.</li>
-            </ul>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultVolumenDPU"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
             <li type="disc">Dosaje de albumina en orina</li>
           </ul>
         </td>
@@ -612,63 +619,30 @@
       <tr>
         <td>
           <ul>
-            <ul>
-              <li type="circle">Volumen de 24 hs.</li>
-            </ul>
+            <li type="disc">Dosaje de acido urico en orina</li>
           </ul>
         </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultVolumenDAO"></td>
+        <td ALIGN=center><input type="checkbox" name="checkDosajeAUO"></td>
+        <td ALIGN=center><input type="text" name="resultDosajeAUO"></td>
       </tr>
-
-
       <tr>
         <td>
           <ul>
-            <li type="disc">Creatininuria</li>
+            <li type="disc">Creatinuria g/24 hs</li>
           </ul>
         </td>
-        <td ALIGN=center><input type="checkbox" name="checkCreatininuria"></td>
-        <td ALIGN=center><input type="text" name="resultCreatininuria"></td>
+        <td ALIGN=center><input type="checkbox" name="checkCreatinuriag/24"></td>
+        <td ALIGN=center><input type="text" name="resultCreatinuriag/24"></td>
       </tr>
 
       <tr>
         <td>
           <ul>
-            <li type="disc">Creatininemia</li>
+            <li type="disc">Creatinuria mg/dl</li>
           </ul>
         </td>
-        <td ALIGN=center><input type="checkbox" name="checkCreatininemia"></td>
-        <td ALIGN=center><input type="text" name="resultCreatininemia"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Diuresis</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkDiuresis"></td>
-        <td ALIGN=center><input type="text" name="resultDiuresis"></td>
-      </tr>
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Peso</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkPeso"></td>
-        <td ALIGN=center><input type="text" name="resultPeso"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Altura</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkAltura"></td>
-        <td ALIGN=center><input type="text" name="resultAltura"></td>
+        <td ALIGN=center><input type="checkbox" name="checkCreatinuriamg/dl"></td>
+        <td ALIGN=center><input type="text" name="resultCreatinuriamg/dl"></td>
       </tr>
 
       <tr>
@@ -693,14 +667,14 @@
 
       <tr>
         <td>
-          <ul>
-            <li type="disc">Dosaje de acido urico en orina</li>
-          </ul>
+          Observaciones
         </td>
-        <td ALIGN=center><input type="checkbox" name="checkDosajeAUO"></td>
-        <td ALIGN=center><input type="text" name="resultDosajeAUO"></td>
+        <td colspan="2">
+          <textarea name="obsorina"></textarea>
+        </td>
       </tr>
 
+      <!--
       <tr>
         <td>
           <ul>
@@ -710,7 +684,7 @@
         <td ALIGN=center><input type="checkbox" name="checkCreatininaU"></td>
         <td ALIGN=center><input type="text" name="resultCreatininaU"></td>
       </tr>
-
+    -->
 
       <tr>
         <td>EXAMEN COMPLETO DE ORINA</td>
@@ -733,6 +707,17 @@
         <td ALIGN=center></td>
         <td ALIGN=center><input type="text" name="resultColor"></td>
       </tr>
+
+      <tr>
+        <td>
+          <ul>
+            <li type="disc">Aspecto</li>
+          </ul>
+        </td>
+        <td ALIGN=center></td>
+        <td ALIGN=center><input type="text" name="resultAspecto"></td>
+      </tr>
+
       <tr>
         <td>
           <ul>
@@ -1115,27 +1100,45 @@
       </tr>
 
       <tr>
-        <td>TSH - Tirotrofina</td>
-        <td ALIGN=center><input type="checkbox" name="checkTSH"></td>
-        <td ALIGN=center><input type="text" name="resultTSH"></td>
+        <td>25-OH-VITAMINA D TOTAL (D2 + D3)</td>
+        <td ALIGN=center><input type="checkbox" name="check25H"></td>
+        <td ALIGN=center><input type="text" name="result25H"></td>
       </tr>
 
       <tr>
-        <td>Tiroxina libre</td>
+        <td>Antic. Anti - Tiroglobulina Sensible (ATG)</td>
+        <td ALIGN=center><input type="checkbox" name="checkATG"></td>
+        <td ALIGN=center><input type="text" name="resultATG"></td>
+      </tr>
+
+      <tr>
+        <td>Antic. Anti Tiroperoxidasa Tiroidea (ATPO)</td>
+        <td ALIGN=center><input type="checkbox" name="checkATPO"></td>
+        <td ALIGN=center><input type="text" name="resultATPO"></td>
+      </tr>
+
+      <tr>
+        <td>Tiroxina libre - T4 LIBRE</td>
         <td ALIGN=center><input type="checkbox" name="checkTiroxinaL"></td>
         <td ALIGN=center><input type="text" name="resultTiroxinaL"></td>
       </tr>
 
       <tr>
-        <td>Tiroxina</td>
+        <td>Tiroxina Libre - T4</td>
         <td ALIGN=center><input type="checkbox" name="checkTiroxina"></td>
         <td ALIGN=center><input type="text" name="resultTiroxina"></td>
       </tr>
 
       <tr>
-        <td>T3 - Triiodotironina</td>
+        <td>Triiodotironina - T3</td>
         <td ALIGN=center><input type="checkbox" name="checkT3"></td>
         <td ALIGN=center><input type="text" name="resultT3"></td>
+      </tr>
+
+      <tr>
+        <td>TSH - Tirotrofina</td>
+        <td ALIGN=center><input type="checkbox" name="checkTSH"></td>
+        <td ALIGN=center><input type="text" name="resultTSH"></td>
       </tr>
 
       <tr>
@@ -1168,17 +1171,6 @@
         <td ALIGN=center><input type="text" name="resultProlactina"></td>
       </tr>
 
-      <tr>
-        <td>Antic. Anti Tiroperoxidasa</td>
-        <td ALIGN=center><input type="checkbox" name="checkAAT"></td>
-        <td ALIGN=center><input type="text" name="resultAAT"></td>
-      </tr>
-
-      <tr>
-        <td>Ac. Anti - Tiroglobulina Ultrasensible</td>
-        <td ALIGN=center><input type="checkbox" name="checkAATU"></td>
-        <td ALIGN=center><input type="text" name="resultAATU"></td>
-      </tr>
 
       <tr>
         <td>Sulfato de DEHIDROEPIANDROSTERONA</td>
@@ -1858,6 +1850,12 @@
       </tr>
 
       <tr>
+        <td>Sifilis cualitativa (Ac. Anti Trep. Pallidum)</td>
+        <td ALIGN=center><input type="checkbox" name="checkSifilis"></td>
+        <td ALIGN=center><input type="text" name="resultSifilis"></td>
+      </tr>
+
+      <tr>
         <td>PCR Cuantitativa</td>
         <td ALIGN=center><input type="checkbox" name="checkPCR"></td>
         <td ALIGN=center><input type="text" name="resultPCR"></td>
@@ -1881,13 +1879,13 @@
         <td ALIGN=center><input type="text" name="resultPaulBunnel"></td>
       </tr>
 
-      
+
       <tr>
         <td>V.D.R.L. TEST</td>
         <td ALIGN=center><input type="checkbox" name="checkVDRL"></td>
         <td ALIGN=center><input type="text" name="resultVDRL"></td>
       </tr>
-      
+
       <tr>
         <td>BACILOSCOPIA DIRECTA (BAAR)</td>
         <td ALIGN=center><input type="checkbox" name="checkBAAR"></td>
@@ -1898,12 +1896,6 @@
         <td>PARATHORMONA'PTH Molecula intacta</td>
         <td ALIGN=center><input type="checkbox" name="checkPTH"></td>
         <td ALIGN=center><input type="text" name="resultPTH"></td>
-      </tr>
-
-      <tr>
-        <td>25 Hidroxi VITAMINA D</td>
-        <td ALIGN=center><input type="checkbox" name="check25H"></td>
-        <td ALIGN=center><input type="text" name="result25H"></td>
       </tr>
 
       <tr>
@@ -1973,7 +1965,7 @@
         <td ALIGN=center><input type="text" name="resultMateriaFecal"></td>
       </tr>
 
-     
+
     </table>
 
 
