@@ -1,61 +1,47 @@
-<!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-        <title>LAC</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-        <!-- Styles -->
-        <style>
-            ul {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-                background-color: white;
-                text-align: center;
-            }
-            
-            li a {
-                display: block;
-                color: rgb(54, 42, 228);
-                font-family: 'calibri';
-                font-size: 24px;
-                padding: 14px 16px;
-                text-decoration: none;
+    <title>LAC</title>
 
-            }
-            
-            li a:hover {
-                background-color:white;
-            }
-          
-            img{
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
+    <!-- Icono -->
+    <link rel="icon" type="image/png" href="images/icono.png">
 
-            }
-            body{
-                width: 100%;
-            }
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
-        </style>
-    </head>
-    <body>
-           <img src="images/LAC.PNG">
-         
-            <ul>
-                <li><a href="documento.html">Nuevo Análisis</a></li>
-                <li><a href="paciente.html">Nuevo Paciente</a></li>
-                <li><a href="comprobante.html">Comprobante</a></li>
-                <li><a href="buscar.html">Buscar</a></li>
-            </ul>
-            
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <br>
+
+        <div class="text-center">
+            <img src="images/LAC.PNG" class="rounded mx-auto d-block">
         </div>
-    </body>
+
+        <br>
+        <br>
+        
+        <div class="row justify-content-md-center">           
+            <div class="col-lg-2">
+                <div class="list-group list-group-flush">
+                    <a href="analisis.html" class="list-group-item list-group-item-action">Nuevo Análisis</a>
+                    <a href="paciente.html" class="list-group-item list-group-item-action">Nuevo Paciente</a>
+                    <a href="comprobante.html" class="list-group-item list-group-item-action">Comprobante</a>
+                    <a href="buscar.html" class="list-group-item list-group-item-action">Buscar</a>
+                </div>
+            </div>
+        </div>
+    </div>   
+</body>
+
 </html>

@@ -21,7 +21,7 @@
         VALUES ('$nombreapellido','$documento','$sexo','$nacimiento','$edad','$localidad','$domicilio','$celular','$mail')";
         $conn->query($sql);
 
-        Header("Location: documento.html"); 
+        Header("Location: analisis.html"); 
 
     }
 

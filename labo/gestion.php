@@ -1408,10 +1408,10 @@ if(!isset($_POST['checkDAEBH'])) {
       if(!isset($_POST['checkTiroxinaL'])) { 
     }else {
         $pdf->Ln(5);                        
-        $nombre = 'TIROXINA LIBRE - T4 LIBRE                   : '.$_POST['resultTiroxinaL'].' ng/dl'."\n";
+        $nombre = 'TIROXINA -t4 LIBRE                   : '.$_POST['resultTiroxinaL'].' ng/dl'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 8);
-        $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: Adultos: 0.89 a 1.76 ng/dl'."\n";
+        $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: 1-23 meses: 0.94-1.44 ng/dl'."\n".'                              2-12 años: 0.86-1.40 ng/dl'."\n".'                              13-21 años: 0.83-1.76 ng/dl'."\n".'                              Adultos: 0.89-1.76 ng/dl'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 12);
     }
@@ -1423,10 +1423,10 @@ if(!isset($_POST['checkDAEBH'])) {
       if(!isset($_POST['checkTiroxina'])) { 
     }else {
         $pdf->Ln(5);                        
-        $nombre = 'TIROXINA LIBRE - T4                         : '.$_POST['resultTiroxina'].' ug/dl'."\n";
+        $nombre = 'TIROXINA -t4 TOTAL                   : '.$_POST['resultTiroxina'].' ng/dl'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 8);
-        $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: Adultos: 4.5 - 10.9 ug/dl'."\n";
+        $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: 1-23 meses: 6.0-13.2 ng/dl'."\n".'                              2-12 años: 5.5-12.1 ng/dl'."\n".'                              13-21 años: 5.5-11.1 ng/dl'."\n".'                              Adultos: 4.5-10.9 ng/dl'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 12);
     }
@@ -1441,7 +1441,7 @@ if(!isset($_POST['checkDAEBH'])) {
         $nombre = 'TRIIODOTIRONINA - T3                 : '.$_POST['resultT3'].' ng/ml'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 8);
-        $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: Adultos: 0.60-1.81 ng/ml'."\n"; //1-23 meses: 1.17-2.39 ng/ml'."\n".'                              2-12 años: 1.05-2.07 ng/ml'."\n".'                              13-21 años: 0.86-1.92 ng/ml'."\n".'                              
+        $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: 1-23 meses: 1.17-2.39 ng/ml'."\n".'                              2-12 años: 1.05-2.07 ng/ml'."\n".'                              13-21 años: 0.86-1.92 ng/ml'."\n".'                              Adultos: 0.60-1.81 ng/dl'."\n";                             
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 12);
     }
@@ -1453,10 +1453,10 @@ if(!isset($_POST['checkDAEBH'])) {
     if(!isset($_POST['checkTSH'])) { 
     }else {
         $pdf->Ln(5);
-        $nombre = 'TSH - TIROTROFINA                    : '.$_POST['resultTSH'].' uUI/ml'."\n";
+        $nombre = 'TIROTROFINA - TSH                    : '.$_POST['resultTSH'].' uUI/ml'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 8);
-        $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: Adultos: 0.35 - 5.05 uUI/ml'."\n";
+        $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: 14 meses: 0.49-7.70 uUI/ml'."\n".'                              5 años: 0.42-6.60 uUL/ml'."\n".'                              14 años: 0.34-5.34 uUL/ml'."\n".'                              Adultos: 0.35-5.50 uUI/ml'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 12);
     }

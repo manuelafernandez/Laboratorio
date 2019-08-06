@@ -1,1989 +1,1957 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"
-    type="text/css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_editor.pkgd.min.css"
-    rel="stylesheet" type="text/css" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css" rel="stylesheet"
-    type="text/css" />
-</head>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
-<script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
-<script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0//js/froala_editor.pkgd.min.js"></script>
-<link rel="stylesheet" href="css/estilo.css">
-<link href="https://fonts.googleapis.com/css?family=Calibri:100,600" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Nuevo Análisis</title>
+    <title>Nuevo análisis</title>
 
-<style>
-  .top-right {
-    position: absolute;
-    right: 18px;
-    top: 10px;
-  }
+    <!-- Icono -->
+    <link rel="icon" type="image/png" href="images/icono.png">
 
-  .alineado-left {
-    position: absolute;
-    left: 200px;
-  }
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
-  .alineado-rigth {
-    position: absolute;
-    right: 300px;
-  }
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="style.css">
 
-  .links>a {
-    color: rgb(54, 42, 228);
-    padding: 0 25px;
-    font-size: 18px;
-    font-weight: normal;
-    font-family: 'Calibri', sans-serif;
-    letter-spacing: .1rem;
-    text-decoration: none;
-  }
-
-  .flex-center {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-  }
-
-  table,
-  th,
-  td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    font-family: 'Courier New', Courier, monospace;
-  }
-
-  th,
-  td {
-    padding: 2px;
-    font-size: medium;
-  }
-
-  th {
-    text-align: center;
-  }
-
-  table {
-    position: relative;
-  }
-
-  body {
-    width: 100%;
-  }
-
-  textarea {
-    position: relative;
-    font-family: 'Courier New', Courier, monospace;
-    width: 80%;
-  }
-</style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
-  <form action="gestion.php" method="post">
-
+  <br>
+  <div class="container">
+  
     <div class="top-right links">
       <a href="home.html">Principal</a>
     </div>
 
-    <div class="flex-center">
-      <h3 style="color: rgb(54, 42, 228); font-family: 'Calibri'; ">Nuevo Análisis</h3>
+    <div class="row justify-content-md-center">
+      <div class="col">
+        <div class="text-center"><h3>Nuevo Análisis</h3></div>
+        
+        <hr>
+
+        <form action="gestion.php" method="post">
+          <div class="form-group row">
+            <label for="numeroprotocolo" class="col-form-label">N° de protocolo:</label> 
+            <div class="col">
+                <input type="number" class="form-control" name="numeroprotocolo">
+            </div>
+          
+            <label for="fecha" class="col-form-label">Fecha:</label> 
+            <div class="col">
+              <input type="date" class="form-control" name="fecha">
+            </div>  
+          </div>
+
+          <div class="form-group row">            
+            <label for="nombreapellido" class="col-form-label">Nombre y apellido:</label>
+            <div class="col">
+              <?php
+                  session_start();
+                  $nombreapellido = $_POST["DNI"];
+                  echo $nombreapellido;
+              ?>
+            </div>
+          
+            <label for="dr" class="col-form-label">Solicito Dr/a: </label>
+            <div class="col">
+              <input type="text" class="form-control" name="doc">
+            </div>            
+          </div>
+
+          <div class="form-group row">
+            <label class="col-form-label">DNI: </label>
+            <div class="col">
+              <?php echo $_SESSION["documento"]; ?>
+            </div>
+            
+            <label class="col-form-label">E-mail: </label>
+            <div class="col">
+                <?php echo $_SESSION["mail"]; ?>
+            </div>
+          </div>
+                    
+          <hr>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" class="text-center">Análisis</th>
+                <th scope="col" class="text-center">Validar</th>
+                <th scope="col" class="text-center">Resultado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Hemograma</td>
+                <td class="text-center"><input type="checkbox" name="checkHemograma"></td>
+                <td></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Hematies</li>
+                  </ul>
+                </td>
+                <td></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultHematies"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Hematocrito</li>
+                  </ul>
+                </td>
+                <td></td>
+                <td class="text-center"><input type="text"  class="form-control" name="resultHematocrito"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Hemoglobina</li>
+                  </ul>
+                </td>
+                <td></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultHemoglobina"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">VCM</li>
+                  </ul>
+                </td>
+                <td></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultVCM"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">HCM</li>
+                  </ul>
+                </td>
+                <td></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultHCM"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">CHCM</li>
+                  </ul>
+                </td>
+                <td></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultCHCM"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Globulos blancos</li>
+                  </ul>
+                </td>
+                <td></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultGlobBlancos"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Basofilos</li>
+                  </ul>
+                </td>
+                <td></td>
+                <td class="text-center">Relativa: <input type="text" class="form-control" name="resultBasofilosR"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Eosinofilos</li>
+                  </ul>
+                </td>
+                <td></td>
+                <td class="text-center">Relativa: <input type="text" class="form-control" name="resultEosinofilosR"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Neutrofilos en cayado</li>
+                  </ul>
+                </td>
+                <td></td>
+                <td class="text-center">Relativa: <input type="text" class="form-control" name="resultNeutrofilosCR"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Neutrofilos segmentados</li>
+                  </ul>
+                </td>
+                <td></td>
+                <td class="text-center">Relativa: <input type="text" class="form-control" name="resultNeutrofilosSR"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Linfocitos</li>
+                  </ul>
+                </td>
+                <td></td>
+                <td class="text-center">Relativa: <input type="text" class="form-control" name="resultLinfocitosR"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Monocitos</li>
+                  </ul>
+                </td>
+                <td></td>
+                <td class="text-center">Relativa: <input type="text" class="form-control" name="resultMonocitosR"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Plaquetas</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkPlaquetas"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultPlaquetas"></td>
+              </tr>
+
+              <tr>
+                <td>Morfologia microscopica</td>
+                <td class="text-center"><input type="checkbox" name="checkMMicroscopica"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultMMicroscopica"></td>
+              </tr>
+
+              <tr>
+                <td>Glucemia</td>
+                <td class="text-center"><input type="checkbox" name="checkGlucemia"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultGlucemia"></td>
+              </tr>
+
+              <tr>
+                <td>Uremia</td>
+                <td class="text-center"><input type="checkbox" name="checkUremia"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultUremia"></td>
+              </tr>
+
+              <tr>
+                <td>Creatinina</td>
+                <td class="text-center"><input type="checkbox" name="checkCreatinina"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultCreatinina"></td>
+              </tr>
+
+              <tr>
+                <td>Acido Urico</td>
+                <td class="text-center"><input type="checkbox" name="checkAUrico"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultAUrico"></td>
+              </tr>
+
+              <tr>
+                <td>Eritrosedimentacion</td>
+                <td class="text-center">
+                  <br>
+                  <input type="checkbox" name="checkEritrosedimentacionP">
+                  <br><br><br><br>
+                  <input type="checkbox" name="checkEritrosedimentacionS"></td>
+                <td class="text-center">
+                  1era hora: <input type="text" class="form-control" name="resultEritrosedimentacionP"> 
+                  <br> 
+                  2da hora: <input type="text" class="form-control" name="resultEritrosedimentacionS">
+                </td>
+              </tr>
+
+              <tr>
+                <td>Colesterol</td>
+                <td class="text-center"><input type="checkbox" name="checkColesterol"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultColesterol"></td>
+              </tr>
+
+              <tr>
+                <td>Colesterol Ligado a HDL</td>
+                <td class="text-center"><input type="checkbox" name="checkColesterolHDL"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultColesterolHDL"></td>
+              </tr>
+
+              <tr>
+                <td>Colesterol LDL</td>
+                <td class="text-center"><input type="checkbox" name="checkColesterolLDL"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultColesterolLDL"></td>
+              </tr>
+
+              <tr>
+                <td>Trigliceridos</td>
+                <td class="text-center"><input type="checkbox" name="checkTrigliceridos"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultTrigliceridos"></td>
+              </tr>
+
+              <tr>
+                <td>Hepatograma Completo</td>
+                <td class="text-center"><input type="checkbox" name="checkHepatograma"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Bilirrubinemia</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkBilirrubinemia"></td>
+                <td class="text-center">Directa: <input type="text" class="form-control" name="resultBilirrubinemiaD"><br>Indirecta:<input type="text" class="form-control"
+                    name="resultBilirrubinemiaI"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Colesterol</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkColesterolHC"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultColesterolHC"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Transaminasa Glutamico Oxalacetica</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkTGO"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultTGO"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Transaminasa Glutamico Piruvica</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkTGP"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultTGP"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Fosfatasa Alcalina</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkFosfatasa"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultFosfatasa"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Proteinas Totales</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkProteinas"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultProteinas"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Albumina</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkAlbumina"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultAlbumina"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Globulinas Totales</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkGlobulinas"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Relacion Albumina/Globulina</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkRelacionAG"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>ALFA AMILASA</td>
+                <td class="text-center"><input type="checkbox" name="checkAlfaAmilasa"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultAlfaAmilasa"></td>
+              </tr>
+
+              <tr>
+                <td>Gamma Glutamil Trans Pep. - GGT -</td>
+                <td class="text-center"><input type="checkbox" name="checkGGTP"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultGGTP"></td>
+              </tr>
+
+              <tr>
+                <td>Calcemia</td>
+                <td class="text-center"><input type="checkbox" name="checkCalcemia"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultCalcemia"></td>
+              </tr>
+
+              <tr>
+                <td>Fosforo</td>
+                <td class="text-center"><input type="checkbox" name="checkFosforo"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultFosforo"></td>
+              </tr>
+
+              <tr>
+                <td>Magnesio Serico</td>
+                <td class="text-center"><input type="checkbox" name="checkMagnesio"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultMagnesio"></td>
+              </tr>
+
+              <tr>
+                <td>Ionograma Plasmatico</td>
+                <td class="text-center"><input type="checkbox" name="checkIonograma"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="circle">Sodio</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultSodio"></td>
+              </tr>
+              <tr>
+                <td>
+                  <ul>
+                    <li type="circle">Potasio</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultPotasio"></td>
+              </tr>
+              <tr>
+                <td>
+                  <ul>
+                    <li type="circle">Cloro</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultCloro"></td>
+              </tr>
+
+              <tr>
+                <td>Creatinfosfokinasa -CPK-</td>
+                <td class="text-center"><input type="checkbox" name="checkCPK"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultCPK"></td>
+              </tr>
+
+              <tr>
+                <td>Lactato Deshidrogenasa</td>
+                <td class="text-center"><input type="checkbox" name="checkLactatoD"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultLactatoD"></td>
+              </tr>
+
+              <tr>
+                <td>EXAMEN COMPLETO DE ORINA 24HS</td>
+                <td class="text-center"><input type="checkbox" name="checkOrina24"></td>
+                <td class="text-center"></td>
+              </tr>
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Volumen 24 hs.</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkVol24hs"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultVol24hs"></td>
+              </tr>
+              <td>
+                <ul>
+                  <li type="disc">Peso</li>
+                </ul>
+              </td>
+              <td class="text-center"><input type="checkbox" name="checkPeso"></td>
+              <td class="text-center"><input type="text" class="form-control" name="resultPeso"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Altura</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkAltura"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultAltura"></td>
+              </tr>
+              <tr>
+
+
+                <td>
+                  <ul>
+                    <li type="disc">Dosaje de calcio en orina</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkDosajeCO"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultDosajeCO"></td>
+              </tr>
+
+
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Dosaje de fosforo en orina</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkDosajeFO"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultDosajeFO"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Dosaje de magnesio en orina</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkMagnesioO"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultMagnesioO"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Dosaje de proteinas urinarias</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkDosajePU"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultDosajePU"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Dosaje de albumina en orina</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkDosajeAO"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultDosajeAO"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Dosaje de acido urico en orina</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkDosajeAUO"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultDosajeAUO"></td>
+              </tr>
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Creatinuria g/24 hs</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkCreatinuriag/24"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultCreatinuriag/24"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Creatinuria mg/dl</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkCreatinuriamg/dl"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultCreatinuriamg/dl"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Clearence de Creatinina</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkDepuracion"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultDepuracion"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">RAC - Razon Albumina/Creatinina</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkRAC"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultRAC"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  Observaciones
+                </td>
+                <td colspan="2">
+                  <textarea class="form-control"name="obsorina"></textarea>
+                </td>
+              </tr>
+
+              <!--
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Creatinina Urinaria</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkCreatininaU"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultCreatininaU"></td>
+              </tr>
+            -->
+
+              <tr>
+                <td>EXAMEN COMPLETO DE ORINA</td>
+                <td class="text-center"><input type="checkbox" name="checkOrina"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>EXAMEN FISICO QUIMICO ORGANOLEPTICO</td>
+                <td class="text-center"><input type="checkbox" name="checkEFQO"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Color</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultColor"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Aspecto</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultAspecto"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">p.H.</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultPH"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Densidad</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultDensidad"></td>
+              </tr>
+
+              <tr>
+                <td>EXAMEN FISICO QUIMICO</td>
+                <td class="text-center"><input type="checkbox" name="checkEFQ"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Proteinas</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultProteinasO" placeholder="No contiene"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Acetona</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultAcetona" placeholder="No contiene"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Urobilina</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultUrobilina" placeholder="No contiene"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Glucosuria</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultGlucosuria" placeholder="No contiene"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Pig.biliares</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultPig" placeholder="No contiene"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Hemoglobina</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultHemoglobinaO" placeholder="No contiene"></td>
+              </tr>
+
+              <tr>
+                <td>EXAMEN MICROSCOPICO DEL SEDIMENTO URINARIO</td>
+                <td class="text-center"><input type="checkbox" name="checkESU"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Cel.Epiteliales</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultCel" placeholder="No se observan"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Piocitos</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultPiocitos" placeholder="No se observan"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Cil.Hialinos</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultCil" placeholder="No se observan"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Bacterias</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultBacterias" placeholder="No se observan"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Leucocitos</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultLeucocitosO" placeholder="No se observan"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Hematies</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultHematiesO" placeholder="No se observan"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Cil.Granulosos</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultCilG" placeholder="No se observan"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Filam.de mucina</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultFilam" placeholder="No se observan"></td>
+              </tr>
+
+              <tr>
+                <td>EXAMEN BACTERIOLOGICO</td>
+                <td class="text-center"><input type="checkbox" name="checkBacteriologico"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Material estudiado</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkMatEstudiado"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultMatEstudiado"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Flora</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkFloraB"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultFloraB"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Cultivo en medios selectivos</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkCultivosMS"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultCultivosMS"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Recuento de colonias</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkRecuentoColonias"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultRecuentoColonias"></td>
+              </tr>
+
+              <tr>
+                <td>EXAMEN BACTERIOLOGICO</td>
+                <td class="text-center"><input type="checkbox" name="checkEB"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Material estudiado</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkME"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultME"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Leucocitos</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkLeucocitosME"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultLeucocitosME"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Hematies</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkHematiesME"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultHematiesME"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Celulas</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkCelulas"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultCelulas"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Fosfatos amorfos</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkFAmorfos"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultFAmorfos"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Piocitos</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkPiocitosME"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultPiocitosME"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Oxalatos de calcio</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkOCalcio"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultOCalcio"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Flora</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkFlora"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultFlora"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Cultivo en medios selectivos</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkCultivos"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultCultivos"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Recuento de colonias</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkRecuento"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultRecuento"></td>
+              </tr>
+
+              <tr>
+                <td>ANTIBIOGRAMA</td>
+                <td class="text-center"><input type="checkbox" name="checkAntibiograma"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>Bacteria en estudio</td>
+                <td class="text-center"><input type="checkbox" name="checkBacteriaEstudio"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultBacteriaEstudio"></td>
+              </tr>
+
+              <tr>
+                <td>Sensibilidad</td>
+                <td class="text-center"><input type="checkbox" name="checkSensibilidad"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultSensibilidad"></td>
+              </tr>
+              <tr>
+                <td>Mediana Sensibilidad</td>
+                <td class="text-center"><input type="checkbox" name="checkMSensibilidad"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultMSensibilidad"></td>
+              </tr>
+
+              <tr>
+                <td>Resistencia</td>
+                <td class="text-center"><input type="checkbox" name="checkResistencia"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultResistencia"></td>
+              </tr>
+
+              <tr>
+                <td>ANTIGENOS DE ESTREPTOCOCO BETA HEMOLITICO</td>
+                <td class="text-center"><input type="checkbox" name="checkDAEBH"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Test Inmunocromatográfico directo</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkTID"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultTID"></td>
+              </tr>
+
+              <tr>
+                <td>G.C.H. SUB-UNIDAD BETA</td>
+                <td class="text-center"><input type="checkbox" name="checkGCH"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultGCH"></td>
+              </tr>
+
+              <tr>
+                <td>Gonadotrofina Corionica Cuantitativa</td>
+                <td class="text-center"><input type="checkbox" name="checkGCC"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultGCC"></td>
+              </tr>
+
+              <tr>
+                <td>25-OH-VITAMINA D TOTAL (D2 + D3)</td>
+                <td class="text-center"><input type="checkbox" name="check25H"></td>
+                <td class="text-center"><input type="text" class="form-control" name="result25H"></td>
+              </tr>
+
+              <tr>
+                <td>Antic. Anti - Tiroglobulina Sensible (ATG)</td>
+                <td class="text-center"><input type="checkbox" name="checkATG"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultATG"></td>
+              </tr>
+
+              <tr>
+                <td>Antic. Anti Tiroperoxidasa Tiroidea (ATPO)</td>
+                <td class="text-center"><input type="checkbox" name="checkATPO"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultATPO"></td>
+              </tr>
+
+              <tr>
+                <td>Tiroxina -t4 LIBRE</td>
+                <td class="text-center"><input type="checkbox" name="checkTiroxinaL"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultTiroxinaL"></td>
+              </tr>
+
+              <tr>
+                <td>Tiroxina -t4  TOTAL</td>
+                <td class="text-center"><input type="checkbox" name="checkTiroxina"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultTiroxina"></td>
+              </tr>
+
+              <tr>
+                <td>Triiodotironina - T3</td>
+                <td class="text-center"><input type="checkbox" name="checkT3"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultT3"></td>
+              </tr>
+
+              <tr>
+                <td>TSH - Tirotrofina</td>
+                <td class="text-center"><input type="checkbox" name="checkTSH"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultTSH"></td>
+              </tr>
+
+              <tr>
+                <td>F.S.H. Plasmática</td>
+                <td class="text-center"><input type="checkbox" name="checkFSH"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultFSH"></td>
+              </tr>
+
+              <tr>
+                <td>L.H. Plasmática</td>
+                <td class="text-center"><input type="checkbox" name="checkLH"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultLH"></td>
+              </tr>
+
+              <tr>
+                <td>Estradiol Plasmático</td>
+                <td class="text-center"><input type="checkbox" name="checkEstradiol"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultEstradiol"></td>
+              </tr>
+
+              <tr>
+                <td>Progesterona Plasmática</td>
+                <td class="text-center"><input type="checkbox" name="checkProgesterona"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultProgesterona"></td>
+              </tr>
+
+              <tr>
+                <td>Prolactina Plasmática</td>
+                <td class="text-center"><input type="checkbox" name="checkProlactina"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultProlactina"></td>
+              </tr>
+
+
+              <tr>
+                <td>Sulfato de DEHIDROEPIANDROSTERONA</td>
+                <td class="text-center"><input type="checkbox" name="checkSD"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultSD"></td>
+              </tr>
+
+              <tr>
+                <td>Delta 4 Androstenodiona</td>
+                <td class="text-center"><input type="checkbox" name="checkD4A"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultD4A"></td>
+              </tr>
+
+              <tr>
+                <td>5" Nucleotidasa</td>
+                <td class="text-center"><input type="checkbox" name="check5N"></td>
+                <td class="text-center"><input type="text" class="form-control" name="result5N"></td>
+              </tr>
+
+              <tr>
+                <td>Tiroglobulina</td>
+                <td class="text-center"><input type="checkbox" name="checkTiroglobulina"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultTiroglobulina"></td>
+              </tr>
+
+              <tr>
+                <td>Antig. Prostatico Especifico (PSA)</td>
+                <td class="text-center"><input type="checkbox" name="checkPSA"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultPSA"></td>
+              </tr>
+
+              <tr>
+                <td>PSA - Libre</td>
+                <td class="text-center"><input type="checkbox" name="checkPSAL"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultPSAL"></td>
+              </tr>
+
+              <tr>
+                <td>Testosterona Total</td>
+                <td class="text-center"><input type="checkbox" name="checkTestosterona"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultTestosterona"></td>
+              </tr>
+
+              <tr>
+                <td>Testosterona libre en suero</td>
+                <td class="text-center"><input type="checkbox" name="checkTestosteronaL"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultTestosteronaL"></td>
+              </tr>
+
+              <tr>
+                <td>Testosterona Biodisponible</td>
+                <td class="text-center"><input type="checkbox" name="checkTestosteronaB"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultTestosteronaB"></td>
+              </tr>
+
+              <tr>
+                <td>Acido Valproico (Valproato)</td>
+                <td class="text-center"><input type="checkbox" name="checkValproico"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultValproico"></td>
+              </tr>
+
+              <tr>
+                <td>Dosaje de Fenobarbital</td>
+                <td class="text-center"><input type="checkbox" name="checkFenobarbital"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultFenobarbital"></td>
+              </tr>
+
+              <tr>
+                <td>Inmunoglobulina E Total (IgE)</td>
+                <td class="text-center"><input type="checkbox" name="checkIgE"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultIgE"></td>
+              </tr>
+
+              <tr>
+                <td>Inmunoglobulina A</td>
+                <td class="text-center"><input type="checkbox" name="checkIA"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultIA"></td>
+              </tr>
+
+              <tr>
+                <td>Inmunoglobulina G</td>
+                <td class="text-center"><input type="checkbox" name="checkIG"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultIG"></td>
+              </tr>
+
+              <tr>
+                <td>Inmunoglobulina M</td>
+                <td class="text-center"><input type="checkbox" name="checkIM"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultIM"></td>
+              </tr>
+
+              <tr>
+                <td>Colinesterasa Serica</td>
+                <td class="text-center"><input type="checkbox" name="checkCS"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultCS"></td>
+              </tr>
+
+              <tr>
+                <td>Cortisol Plasmático basal.</td>
+                <td class="text-center"><input type="checkbox" name="checkCPB"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultCPB"></td>
+              </tr>
+
+              <tr>
+                <td>T3 Libre</td>
+                <td class="text-center"><input type="checkbox" name="checkT3L"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultT3L"></td>
+              </tr>
+
+              <tr>
+                <td>Hemoglobina Glicosilada HBA 1C</td>
+                <td class="text-center"><input type="checkbox" name="checkHBA"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultHBA"></td>
+              </tr>
+
+              <tr>
+                <td>Transferrina</td>
+                <td class="text-center"><input type="checkbox" name="checkTransferrina"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultTransferrina"></td>
+              </tr>
+
+              <tr>
+                <td>Ferritina</td>
+                <td class="text-center"><input type="checkbox" name="checkFerritina"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultFerritina"></td>
+              </tr>
+
+              <tr>
+                <td>Ferremia - Hierro Serico</td>
+                <td class="text-center"><input type="checkbox" name="checkFerremia"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultFerremia"></td>
+              </tr>
+
+              <tr>
+                <td>Antic. Anti Cardiolipina IgG</td>
+                <td class="text-center"><input type="checkbox" name="checkIgG"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultIgG"></td>
+              </tr>
+
+              <tr>
+                <td>Antic. Anti Cardiolipina IgM</td>
+                <td class="text-center"><input type="checkbox" name="checkIgM"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultIgM"></td>
+              </tr>
+              <tr>
+                <td>Grupo</td>
+                <td class="text-center"><input type="checkbox" name="checkGrupo"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultGrupo"></td>
+              </tr>
+
+              <tr>
+                <td>Factor RH</td>
+                <td class="text-center"><input type="checkbox" name="checkFactorRH"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultFactorRH"></td>
+              </tr>
+
+              <tr>
+                <td>Acido Folico</td>
+                <td class="text-center"><input type="checkbox" name="checkAcidoFolico"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultAcidoFolico"></td>
+              </tr>
+              <tr>
+                <td>Lactico Dehidrogenasa</td>
+                <td class="text-center"><input type="checkbox" name="checkLDH"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultLDH"></td>
+              </tr>
+              <tr>
+                <td>Beta 2 Microglobulina</td>
+                <td class="text-center"><input type="checkbox" name="checkB2M"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultB2M"></td>
+              </tr>
+              <tr>
+                <td>PROTEINOGROMA ELECTROFFORETICO</td>
+                <td class="text-center"><input type="checkbox" name="checkPE"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>Proteinas Totales</td>
+                <td class="text-center"><input type="checkbox" name="checkProteinasPE"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultProteinasPE"></td>
+              </tr>
+
+              <tr>
+                <td>Albumina</td>
+                <td class="text-center"><input type="checkbox" name="checkAlbuminaPE"></td>
+                <td class="text-center">
+                  <input type="text" class="form-control" name="resultAlbuminaPE">
+                  <br>
+                  <input type="text" class="form-control" name="resultAlbuminaPE1">
+                </td>
+              </tr>
+              <tr>
+                <td>Alfa-1 GLOBULINA</td>
+                <td class="text-center"><input type="checkbox" name="checkA1G"></td>
+                <td class="text-center">
+                  <input type="text" class="form-control" name="resultA1G1">
+                  <br>
+                  <input type="text" class="form-control" name="resultA1G2">
+                </td>
+              </tr>
+              <tr>
+                <td>Alfa-2 GLOBULINS</td>
+                <td class="text-center"><input type="checkbox" name="checkA2G"></td>
+                <td class="text-center">
+                  <input type="text" class="form-control" name="resultA2G1">
+                  <br>
+                  <input type="text" class="form-control" name="resultA2G2">
+                </td>
+
+              </tr>
+
+              <tr>
+                <td>Beta-1 GLOBULINA</td>
+                <td class="text-center"><input type="checkbox" name="checkB1G"></td>
+                <td class="text-center">
+                  <input type="text" class="form-control" name="resultB1G1">
+                  <br>
+                  <input type="text" class="form-control" name="resultB1G2">
+                </td>
+
+              </tr>
+
+              <tr>
+                <td>Beta-2 GLOBULINA</td>
+                <td class="text-center"><input type="checkbox" name="checkB2G"></td>
+                <td class="text-center">
+                  <input type="text" class="form-control" name="resultB2G1">
+                  <br>
+                  <input type="text" class="form-control" name="resultB2G2">
+                </td>
+              </tr>
+              <tr>
+                <td>GAMMA GLOBULINA</td>
+                <td class="text-center"><input type="checkbox" name="checkGG"></td>
+                <td class="text-center">
+                  <input type="text" class="form-control" name="resultGG1">
+                  <br>
+                  <input type="text" class="form-control" name="resultGG2">
+                </td>
+              </tr>
+
+              <tr>
+                <td>CULTIVO PARA MYCOPLASMA HOMINIS</td>
+                <td class="text-center"><input type="checkbox" name="checkMycoplasma"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>Tipo de muestra</td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultMuestra"></td>
+              </tr>
+
+              <tr>
+                <td>Cultivo e identificacion. Resultado:</td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultCIMH"></td>
+              </tr>
+
+              <tr>
+                <td>Recuento de unidades</td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultRUMH"></td>
+              </tr>
+              <tr>
+                <td>Sensibilidad</td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultSMH"></td>
+              </tr>
+
+              <tr>
+                <td>CULTIVO PARA UREAPLASMA UREALITICUM</td>
+                <td class="text-center"><input type="checkbox" name="checkUreaplasma"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>Cultivo e identificacion. Resultado:</td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultCIUU"></td>
+              </tr>
+
+              <tr>
+                <td>Recuento de unidades</td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultRUUU"></td>
+              </tr>
+              <tr>
+                <td>Sensibilidad</td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultSUU"></td>
+              </tr>
+
+              <tr>
+                <td>ESPERMOGRAMA</td>
+                <td class="text-center"><input type="checkbox" name="checkEspermograma"></td>
+                <td class="text-center"></td>
+              </tr>
+              <tr>
+                <td>Caracteristicas fisicas</td>
+                <td class="text-center"><input type="checkbox" name="checkCaracFisicas"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Volumen</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultVolumenE"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">p.H.</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultPHE"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Viscosidad</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultViscosidad"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Tiempo de licuacion</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultTpoLicuacion"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Numero de espermatozoides</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultNumEspermatozoides"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Expresado en</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultExpresados"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Por ml</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultMl"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Totales</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultTotalesE"></td>
+              </tr>
+
+              <tr>
+                <td>Estudio de la movilidad</td>
+                <td class="text-center"><input type="checkbox" name="checkMovilidad"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Formas normales</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultNormales"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Formas Muertas</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultMuertas"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Formas moviles</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultMoviles"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Grado I</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultGI"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Grado II</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultGII"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Grado III</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultGIII"></td>
+              </tr>
+
+              <tr>
+                <td>Estudio de los elementos agregados</td>
+                <td class="text-center"><input type="checkbox" name="checkEEA"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Celulas</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultCEEA"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Espermatogonias</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultEEEA"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Hematies</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultHEEA"></td>
+              </tr>
+
+              <tr>
+                <td>Determinaciones quimicas</td>
+                <td class="text-center"><input type="checkbox" name="checkEDQ"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Acido citrico</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultEAC"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Fructosa</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultEF"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Alfa glucosidasa neutral</li>
+                  </ul>
+                </td>
+                <td class="text-center"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultSemen"></td>
+              </tr>
+
+              <tr>
+                <td>Anticuerpo Anti-Mitocondrial (AMA)</td>
+                <td class="text-center"><input type="checkbox" name="checkAMA"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultAMA"></td>
+              </tr>
+
+              <tr>
+                <td>HVA-Ac IgG (Anticuerpo Anti-Hepatitis A IgG)</td>
+                <td class="text-center"><input type="checkbox" name="checkHVA"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultHVA"></td>
+              </tr>
+
+              <tr>
+                <td>Hepatitis C (HCV) (Anticuerpo Anti-Hepatitis C)</td>
+                <td class="text-center"><input type="checkbox" name="checkHCV"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultHCV"></td>
+              </tr>
+
+              <tr>
+                <td>Virus EPSTEIN BARR - Anti VCA (IgG)</td>
+                <td class="text-center"><input type="checkbox" name="checkVirusEB"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultVirusEB"></td>
+              </tr>
+
+              <tr>
+                <td>Hepatitis B Antigeno de Superficie (HBS Ag) <br> Metodo: Inmunocrografico</td>
+                <td class="text-center"><input type="checkbox" name="checkHBSI"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultHBSI"></td>
+              </tr>
+
+              <tr>
+                <td>Hepatitis B Antigeno de Superficie (HBS Ag) <br> Metodo: Quimioluminiscencia</td>
+                <td class="text-center"><input type="checkbox" name="checkHBSQ"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultHBSQ"></td>
+              </tr>
+
+
+              <tr>
+                <td>Antic. Anti MUSK</td>
+                <td class="text-center"><input type="checkbox" name="checkMUSK"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultMUSK"></td>
+              </tr>
+
+              <tr>
+                <td>Prueba de tolerancia oral a la glucosa</td>
+                <td class="text-center"><input type="checkbox" name="checkGGlucemia"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultGGlucemia"></td>
+              </tr>
+
+              <tr>
+                <td>Glucemia basal</td>
+                <td class="text-center"><input type="checkbox" name="checkGl"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultGl"></td>
+              </tr>
+
+              <tr>
+                <td>Curva de tolerancia a la glucosa</td>
+                <td class="text-center"><input type="checkbox" name="checkCTG"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Glucosa 60 min</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkGlucosa60"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultGlucosa60"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Glucosa 120 min</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkGlucosa120"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultGlucosa120"></td>
+              </tr>
+
+              <tr>
+                <td>Fructosamina</td>
+                <td class="text-center"><input type="checkbox" name="checkFructosamina"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultFructosamina"></td>
+              </tr>
+
+              <tr>
+                <td>COAGULOGRAMA BASICO</td>
+                <td class="text-center"><input type="checkbox" name="checkCoagulograma"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Tiempo de coagulacion</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkTpoCoagulacion"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultTpoCoagulacion"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Tiempo de sangria</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkTpoSangria"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultTpoSangria"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Tiempo de protrombina</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkTpoProtrombina"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultTpoProtrombina"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Concentracion de protrombina</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkConcentracionProtrombina"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultConcentracionProtrombina"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Ratio</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkRatio"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultRatio"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">I.N.R</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkINR"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultINR"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Tiempo parcial de kaolin (KPTT)</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkKPTT"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultKPTT"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Recuento de plaquetas</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkRecuentoPlaquetas"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultRecuentoPlaquetas"></td>
+              </tr>
+
+              <tr>
+                <td>Proteina C reactiva</td>
+                <td class="text-center"><input type="checkbox" name="checkProteinaC"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultProteinaC"></td>
+              </tr>
+
+              <tr>
+                <td>Sifilis cualitativa (Ac. Anti Trep. Pallidum)</td>
+                <td class="text-center"><input type="checkbox" name="checkSifilis"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultSifilis"></td>
+              </tr>
+
+              <tr>
+                <td>PCR Cuantitativa</td>
+                <td class="text-center"><input type="checkbox" name="checkPCR"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultPCR"></td>
+              </tr>
+
+              <tr>
+                <td>Antiestreptolisina "0"</td>
+                <td class="text-center"><input type="checkbox" name="checkAntiestrep0"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultAntiestrep0"></td>
+              </tr>
+
+              <tr>
+                <td>Latex artritis reumatoidea cuantitativo</td>
+                <td class="text-center"><input type="checkbox" name="checkLatex"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultLatex"></td>
+              </tr>
+
+              <tr>
+                <td>Reaccion de Paul Bunnel -Monotest-</td>
+                <td class="text-center"><input type="checkbox" name="checkPaulBunnel"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultPaulBunnel"></td>
+              </tr>
+
+
+              <tr>
+                <td>V.D.R.L. TEST</td>
+                <td class="text-center"><input type="checkbox" name="checkVDRL"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultVDRL"></td>
+              </tr>
+
+              <tr>
+                <td>BACILOSCOPIA DIRECTA (BAAR)</td>
+                <td class="text-center"><input type="checkbox" name="checkBAAR"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultBAAR"></td>
+              </tr>
+
+              <tr>
+                <td>PARATHORMONA'PTH Molecula intacta</td>
+                <td class="text-center"><input type="checkbox" name="checkPTH"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultPTH"></td>
+              </tr>
+
+              <tr>
+                <td>VITAMINA B12</td>
+                <td class="text-center"><input type="checkbox" name="checkB12"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultB12"></td>
+              </tr>
+
+              <tr>
+                <td>ANTICUERPOS ANTI VIRUS DE LA INMUNODEFICIENCIA HUMANA H.I.V. (I+II)</td>
+                <td class="text-center"><input type="checkbox" name="checkHIV"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultHIV"></td>
+              </tr>
+
+              <tr>
+                <td>Insulina (Basal)</td>
+                <td class="text-center"><input type="checkbox" name="checkInsulina"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultInsulina"></td>
+              </tr>
+
+              <tr>
+                <td>Indice de resustebcua a la insulina (HOMA-IR)</td>
+                <td class="text-center"><input type="checkbox" name="checkHoma"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultHoma"></td>
+              </tr>
+
+              <tr>
+                <td>Homocisteina (Plasmatica)</td>
+                <td class="text-center"><input type="checkbox" name="checkHomocisteina"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultHomocisteina"></td>
+              </tr>
+
+              <tr>
+                <td>SOMF - Sangre Oculta en Materia Fecal</td>
+                <td class="text-center"><input type="checkbox" name="checkSOMF"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultSOMF"></td>
+              </tr>
+
+              <tr>
+                <td>DMF - Directo Materia Fecal</td>
+                <td class="text-center"><input type="checkbox" name="checkDMF"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultDMF"></td>
+              </tr>
+              <tr>
+                <td>Parasitologico seriado</td>
+                <td class="text-center"><input type="checkbox" name="checkPS"></td>
+                <td class="text-center"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Test de Graham</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkTestGraham"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultTestGraham"></td>
+              </tr>
+
+              <tr>
+                <td>
+                  <ul>
+                    <li type="disc">Materia Fecal</li>
+                  </ul>
+                </td>
+                <td class="text-center"><input type="checkbox" name="checkMateriaFecal"></td>
+                <td class="text-center"><input type="text" class="form-control" name="resultMateriaFecal"></td>
+              </tr>
+
+              <br><br>
+              
+              <tr>
+                <td colspan="3"> 
+                  <div class="text-center">
+                    <label>Observaciones:</label> 
+                    <textarea class="form-control" name="campotexto"></textarea>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="text-center">
+              <button type="submit" name="crearpdf" class="btn btn-success">Crear PDF</button>
+          </div>
+        </form>
+      </div>
     </div>
-
-    <hr style="width: 80%;">
-
-    <div class="alineado-left">
-      <div style="font-family: 'Calibri'; font-size: 18px;">
-        <p>N° de protocolo: <input type="number" name="numeroprotocolo"></p>
-      </div>
-      <div style="font-family: 'Calibri'; font-size: 18px;">
-        <p>Fecha: <input type="date" name="fecha"></p>
-      </div>
-      <div style="font-family: 'Calibri'; font-size: 18px;">
-        <p>Apellido y nombre:
-          <?php
-                session_start();
-                $nombreapellido = $_POST["DNI"];
-                echo $nombreapellido;
-             ?>
-        </p>
-      </div>
-    </div>
-
-    <div class="alineado-rigth">
-      <div style="font-family: 'Calibri'; font-size: 18px;">
-        <p>Solicito Dr/a: <input type="text" name="doc"></p>
-      </div>
-      <div style="font-family: 'Calibri'; font-size: 18px;">
-        <p>DNI: <?php echo $_SESSION["documento"]; ?> </p>
-      </div>
-      <div style="font-family: 'Calibri'; font-size: 18px;">
-        <p>Mail: <?php echo $_SESSION["mail"]; ?> </p>
-      </div>
-    </div>
-
-    <br><br><br><br><br>
-    <hr style="width: 80%;">
-
-    <table style="width:80%" align="center">
-      <tr>
-        <th>Analisis</th>
-        <th>Validar</th>
-        <th>Resultado</th>
-      </tr>
-
-      <tr>
-        <td>Hemograma</td>
-        <td ALIGN=center><input type="checkbox" name="checkHemograma"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Hematies</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultHematies"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Hematocrito</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultHematocrito"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Hemoglobina</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultHemoglobina"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">VCM</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultVCM"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">HCM</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultHCM"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">CHCM</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultCHCM"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Globulos blancos</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultGlobBlancos"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Basofilos</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center>Relativa: <input type="text" name="resultBasofilosR"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Eosinofilos</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center>Relativa: <input type="text" name="resultEosinofilosR"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Neutrofilos en cayado</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center>Relativa: <input type="text" name="resultNeutrofilosCR"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Neutrofilos segmentados</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center>Relativa: <input type="text" name="resultNeutrofilosSR"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Linfocitos</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center>Relativa: <input type="text" name="resultLinfocitosR"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Monocitos</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center>Relativa: <input type="text" name="resultMonocitosR"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Plaquetas</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkPlaquetas"></td>
-        <td ALIGN=center><input type="text" name="resultPlaquetas"></td>
-      </tr>
-
-      <tr>
-        <td>Morfologia microscopica</td>
-        <td ALIGN=center><input type="checkbox" name="checkMMicroscopica"></td>
-        <td ALIGN=center><input type="text" name="resultMMicroscopica"></td>
-      </tr>
-
-      <tr>
-        <td>Glucemia</td>
-        <td ALIGN=center><input type="checkbox" name="checkGlucemia"></td>
-        <td ALIGN=center><input type="text" name="resultGlucemia"></td>
-      </tr>
-
-      <tr>
-        <td>Uremia</td>
-        <td ALIGN=center><input type="checkbox" name="checkUremia"></td>
-        <td ALIGN=center><input type="text" name="resultUremia"></td>
-      </tr>
-
-      <tr>
-        <td>Creatinina</td>
-        <td ALIGN=center><input type="checkbox" name="checkCreatinina"></td>
-        <td ALIGN=center><input type="text" name="resultCreatinina"></td>
-      </tr>
-
-      <tr>
-        <td>Acido Urico</td>
-        <td ALIGN=center><input type="checkbox" name="checkAUrico"></td>
-        <td ALIGN=center><input type="text" name="resultAUrico"></td>
-      </tr>
-
-      <tr>
-        <td>Eritrosedimentacion</td>
-        <td ALIGN=center><input type="checkbox" name="checkEritrosedimentacionP"><br><input type="checkbox"
-            name="checkEritrosedimentacionS"></td>
-        <td ALIGN=center>1era hora: <input type="text" name="resultEritrosedimentacionP"> <br>2da hora: <input
-            type="text" name="resultEritrosedimentacionS"></td>
-      </tr>
-
-      <tr>
-        <td>Colesterol</td>
-        <td ALIGN=center><input type="checkbox" name="checkColesterol"></td>
-        <td ALIGN=center><input type="text" name="resultColesterol"></td>
-      </tr>
-
-      <tr>
-        <td>Colesterol Ligado a HDL</td>
-        <td ALIGN=center><input type="checkbox" name="checkColesterolHDL"></td>
-        <td ALIGN=center><input type="text" name="resultColesterolHDL"></td>
-      </tr>
-
-      <tr>
-        <td>Colesterol LDL</td>
-        <td ALIGN=center><input type="checkbox" name="checkColesterolLDL"></td>
-        <td ALIGN=center><input type="text" name="resultColesterolLDL"></td>
-      </tr>
-
-      <tr>
-        <td>Trigliceridos</td>
-        <td ALIGN=center><input type="checkbox" name="checkTrigliceridos"></td>
-        <td ALIGN=center><input type="text" name="resultTrigliceridos"></td>
-      </tr>
-
-      <tr>
-        <td>Hepatograma Completo</td>
-        <td ALIGN=center><input type="checkbox" name="checkHepatograma"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Bilirrubinemia</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkBilirrubinemia"></td>
-        <td ALIGN=center>Directa: <input type="text" name="resultBilirrubinemiaD"><br>Indirecta:<input type="text"
-            name="resultBilirrubinemiaI"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Colesterol</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkColesterolHC"></td>
-        <td ALIGN=center><input type="text" name="resultColesterolHC"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Transaminasa Glutamico Oxalacetica</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkTGO"></td>
-        <td ALIGN=center><input type="text" name="resultTGO"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Transaminasa Glutamico Piruvica</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkTGP"></td>
-        <td ALIGN=center><input type="text" name="resultTGP"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Fosfatasa Alcalina</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkFosfatasa"></td>
-        <td ALIGN=center><input type="text" name="resultFosfatasa"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Proteinas Totales</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkProteinas"></td>
-        <td ALIGN=center><input type="text" name="resultProteinas"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Albumina</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkAlbumina"></td>
-        <td ALIGN=center><input type="text" name="resultAlbumina"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Globulinas Totales</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkGlobulinas"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Relacion Albumina/Globulina</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkRelacionAG"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>ALFA AMILASA</td>
-        <td ALIGN=center><input type="checkbox" name="checkAlfaAmilasa"></td>
-        <td ALIGN=center><input type="text" name="resultAlfaAmilasa"></td>
-      </tr>
-
-      <tr>
-        <td>Gamma Glutamil Trans Pep. - GGT -</td>
-        <td ALIGN=center><input type="checkbox" name="checkGGTP"></td>
-        <td ALIGN=center><input type="text" name="resultGGTP"></td>
-      </tr>
-
-      <tr>
-        <td>Calcemia</td>
-        <td ALIGN=center><input type="checkbox" name="checkCalcemia"></td>
-        <td ALIGN=center><input type="text" name="resultCalcemia"></td>
-      </tr>
-
-      <tr>
-        <td>Fosforo</td>
-        <td ALIGN=center><input type="checkbox" name="checkFosforo"></td>
-        <td ALIGN=center><input type="text" name="resultFosforo"></td>
-      </tr>
-
-      <tr>
-        <td>Magnesio Serico</td>
-        <td ALIGN=center><input type="checkbox" name="checkMagnesio"></td>
-        <td ALIGN=center><input type="text" name="resultMagnesio"></td>
-      </tr>
-
-      <tr>
-        <td>Ionograma Plasmatico</td>
-        <td ALIGN=center><input type="checkbox" name="checkIonograma"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="circle">Sodio</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultSodio"></td>
-      </tr>
-      <tr>
-        <td>
-          <ul>
-            <li type="circle">Potasio</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultPotasio"></td>
-      </tr>
-      <tr>
-        <td>
-          <ul>
-            <li type="circle">Cloro</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultCloro"></td>
-      </tr>
-
-      <tr>
-        <td>Creatinfosfokinasa -CPK-</td>
-        <td ALIGN=center><input type="checkbox" name="checkCPK"></td>
-        <td ALIGN=center><input type="text" name="resultCPK"></td>
-      </tr>
-
-      <tr>
-        <td>Lactato Deshidrogenasa</td>
-        <td ALIGN=center><input type="checkbox" name="checkLactatoD"></td>
-        <td ALIGN=center><input type="text" name="resultLactatoD"></td>
-      </tr>
-
-      <tr>
-        <td>EXAMEN COMPLETO DE ORINA 24HS</td>
-        <td ALIGN=center><input type="checkbox" name="checkOrina24"></td>
-        <td ALIGN=center></td>
-      </tr>
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Volumen 24 hs.</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkVol24hs"></td>
-        <td ALIGN=center><input type="text" name="resultVol24hs"></td>
-      </tr>
-      <td>
-        <ul>
-          <li type="disc">Peso</li>
-        </ul>
-      </td>
-      <td ALIGN=center><input type="checkbox" name="checkPeso"></td>
-      <td ALIGN=center><input type="text" name="resultPeso"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Altura</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkAltura"></td>
-        <td ALIGN=center><input type="text" name="resultAltura"></td>
-      </tr>
-      <tr>
-
-
-        <td>
-          <ul>
-            <li type="disc">Dosaje de calcio en orina</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkDosajeCO"></td>
-        <td ALIGN=center><input type="text" name="resultDosajeCO"></td>
-      </tr>
-
-
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Dosaje de fosforo en orina</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkDosajeFO"></td>
-        <td ALIGN=center><input type="text" name="resultDosajeFO"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Dosaje de magnesio en orina</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkMagnesioO"></td>
-        <td ALIGN=center><input type="text" name="resultMagnesioO"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Dosaje de proteinas urinarias</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkDosajePU"></td>
-        <td ALIGN=center><input type="text" name="resultDosajePU"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Dosaje de albumina en orina</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkDosajeAO"></td>
-        <td ALIGN=center><input type="text" name="resultDosajeAO"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Dosaje de acido urico en orina</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkDosajeAUO"></td>
-        <td ALIGN=center><input type="text" name="resultDosajeAUO"></td>
-      </tr>
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Creatinuria g/24 hs</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkCreatinuriag/24"></td>
-        <td ALIGN=center><input type="text" name="resultCreatinuriag/24"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Creatinuria mg/dl</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkCreatinuriamg/dl"></td>
-        <td ALIGN=center><input type="text" name="resultCreatinuriamg/dl"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Clearence de Creatinina</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkDepuracion"></td>
-        <td ALIGN=center><input type="text" name="resultDepuracion"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">RAC - Razon Albumina/Creatinina</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkRAC"></td>
-        <td ALIGN=center><input type="text" name="resultRAC"></td>
-      </tr>
-
-      <tr>
-        <td>
-          Observaciones
-        </td>
-        <td colspan="2">
-          <textarea name="obsorina"></textarea>
-        </td>
-      </tr>
-
-      <!--
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Creatinina Urinaria</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkCreatininaU"></td>
-        <td ALIGN=center><input type="text" name="resultCreatininaU"></td>
-      </tr>
-    -->
-
-      <tr>
-        <td>EXAMEN COMPLETO DE ORINA</td>
-        <td ALIGN=center><input type="checkbox" name="checkOrina"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>EXAMEN FISICO QUIMICO ORGANOLEPTICO</td>
-        <td ALIGN=center><input type="checkbox" name="checkEFQO"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Color</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultColor"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Aspecto</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultAspecto"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">p.H.</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultPH"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Densidad</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultDensidad"></td>
-      </tr>
-
-      <tr>
-        <td>EXAMEN FISICO QUIMICO</td>
-        <td ALIGN=center><input type="checkbox" name="checkEFQ"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Proteinas</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultProteinasO" placeholder="No contiene"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Acetona</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultAcetona" placeholder="No contiene"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Urobilina</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultUrobilina" placeholder="No contiene"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Glucosuria</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultGlucosuria" placeholder="No contiene"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Pig.biliares</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultPig" placeholder="No contiene"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Hemoglobina</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultHemoglobinaO" placeholder="No contiene"></td>
-      </tr>
-
-      <tr>
-        <td>EXAMEN MICROSCOPICO DEL SEDIMENTO URINARIO</td>
-        <td ALIGN=center><input type="checkbox" name="checkESU"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Cel.Epiteliales</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultCel" placeholder="No se observan"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Piocitos</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultPiocitos" placeholder="No se observan"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Cil.Hialinos</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultCil" placeholder="No se observan"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Bacterias</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultBacterias" placeholder="No se observan"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Leucocitos</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultLeucocitosO" placeholder="No se observan"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Hematies</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultHematiesO" placeholder="No se observan"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Cil.Granulosos</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultCilG" placeholder="No se observan"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Filam.de mucina</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultFilam" placeholder="No se observan"></td>
-      </tr>
-
-      <tr>
-        <td>EXAMEN BACTERIOLOGICO</td>
-        <td ALIGN=center><input type="checkbox" name="checkBacteriologico"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Material estudiado</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkMatEstudiado"></td>
-        <td ALIGN=center><input type="text" name="resultMatEstudiado"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Flora</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkFloraB"></td>
-        <td ALIGN=center><input type="text" name="resultFloraB"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Cultivo en medios selectivos</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkCultivosMS"></td>
-        <td ALIGN=center><input type="text" name="resultCultivosMS"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Recuento de colonias</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkRecuentoColonias"></td>
-        <td ALIGN=center><input type="text" name="resultRecuentoColonias"></td>
-      </tr>
-
-      <tr>
-        <td>EXAMEN BACTERIOLOGICO</td>
-        <td ALIGN=center><input type="checkbox" name="checkEB"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Material estudiado</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkME"></td>
-        <td ALIGN=center><input type="text" name="resultME"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Leucocitos</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkLeucocitosME"></td>
-        <td ALIGN=center><input type="text" name="resultLeucocitosME"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Hematies</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkHematiesME"></td>
-        <td ALIGN=center><input type="text" name="resultHematiesME"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Celulas</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkCelulas"></td>
-        <td ALIGN=center><input type="text" name="resultCelulas"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Fosfatos amorfos</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkFAmorfos"></td>
-        <td ALIGN=center><input type="text" name="resultFAmorfos"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Piocitos</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkPiocitosME"></td>
-        <td ALIGN=center><input type="text" name="resultPiocitosME"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Oxalatos de calcio</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkOCalcio"></td>
-        <td ALIGN=center><input type="text" name="resultOCalcio"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Flora</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkFlora"></td>
-        <td ALIGN=center><input type="text" name="resultFlora"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Cultivo en medios selectivos</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkCultivos"></td>
-        <td ALIGN=center><input type="text" name="resultCultivos"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Recuento de colonias</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkRecuento"></td>
-        <td ALIGN=center><input type="text" name="resultRecuento"></td>
-      </tr>
-
-      <tr>
-        <td>ANTIBIOGRAMA</td>
-        <td ALIGN=center><input type="checkbox" name="checkAntibiograma"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>Bacteria en estudio</td>
-        <td ALIGN=center><input type="checkbox" name="checkBacteriaEstudio"></td>
-        <td ALIGN=center><input type="text" name="resultBacteriaEstudio"></td>
-      </tr>
-
-      <tr>
-        <td>Sensibilidad</td>
-        <td ALIGN=center><input type="checkbox" name="checkSensibilidad"></td>
-        <td ALIGN=center><input type="text" name="resultSensibilidad"></td>
-      </tr>
-      <tr>
-        <td>Mediana Sensibilidad</td>
-        <td ALIGN=center><input type="checkbox" name="checkMSensibilidad"></td>
-        <td ALIGN=center><input type="text" name="resultMSensibilidad"></td>
-      </tr>
-
-      <tr>
-        <td>Resistencia</td>
-        <td ALIGN=center><input type="checkbox" name="checkResistencia"></td>
-        <td ALIGN=center><input type="text" name="resultResistencia"></td>
-      </tr>
-
-      <tr>
-        <td>ANTIGENOS DE ESTREPTOCOCO BETA HEMOLITICO</td>
-        <td ALIGN=center><input type="checkbox" name="checkDAEBH"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Test Inmunocromatográfico directo</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkTID"></td>
-        <td ALIGN=center><input type="text" name="resultTID"></td>
-      </tr>
-
-      <tr>
-        <td>G.C.H. SUB-UNIDAD BETA</td>
-        <td ALIGN=center><input type="checkbox" name="checkGCH"></td>
-        <td ALIGN=center><input type="text" name="resultGCH"></td>
-      </tr>
-
-      <tr>
-        <td>Gonadotrofina Corionica Cuantitativa</td>
-        <td ALIGN=center><input type="checkbox" name="checkGCC"></td>
-        <td ALIGN=center><input type="text" name="resultGCC"></td>
-      </tr>
-
-      <tr>
-        <td>25-OH-VITAMINA D TOTAL (D2 + D3)</td>
-        <td ALIGN=center><input type="checkbox" name="check25H"></td>
-        <td ALIGN=center><input type="text" name="result25H"></td>
-      </tr>
-
-      <tr>
-        <td>Antic. Anti - Tiroglobulina Sensible (ATG)</td>
-        <td ALIGN=center><input type="checkbox" name="checkATG"></td>
-        <td ALIGN=center><input type="text" name="resultATG"></td>
-      </tr>
-
-      <tr>
-        <td>Antic. Anti Tiroperoxidasa Tiroidea (ATPO)</td>
-        <td ALIGN=center><input type="checkbox" name="checkATPO"></td>
-        <td ALIGN=center><input type="text" name="resultATPO"></td>
-      </tr>
-
-      <tr>
-        <td>Tiroxina libre - T4 LIBRE</td>
-        <td ALIGN=center><input type="checkbox" name="checkTiroxinaL"></td>
-        <td ALIGN=center><input type="text" name="resultTiroxinaL"></td>
-      </tr>
-
-      <tr>
-        <td>Tiroxina Libre - T4</td>
-        <td ALIGN=center><input type="checkbox" name="checkTiroxina"></td>
-        <td ALIGN=center><input type="text" name="resultTiroxina"></td>
-      </tr>
-
-      <tr>
-        <td>Triiodotironina - T3</td>
-        <td ALIGN=center><input type="checkbox" name="checkT3"></td>
-        <td ALIGN=center><input type="text" name="resultT3"></td>
-      </tr>
-
-      <tr>
-        <td>TSH - Tirotrofina</td>
-        <td ALIGN=center><input type="checkbox" name="checkTSH"></td>
-        <td ALIGN=center><input type="text" name="resultTSH"></td>
-      </tr>
-
-      <tr>
-        <td>F.S.H. Plasmática</td>
-        <td ALIGN=center><input type="checkbox" name="checkFSH"></td>
-        <td ALIGN=center><input type="text" name="resultFSH"></td>
-      </tr>
-
-      <tr>
-        <td>L.H. Plasmática</td>
-        <td ALIGN=center><input type="checkbox" name="checkLH"></td>
-        <td ALIGN=center><input type="text" name="resultLH"></td>
-      </tr>
-
-      <tr>
-        <td>Estradiol Plasmático</td>
-        <td ALIGN=center><input type="checkbox" name="checkEstradiol"></td>
-        <td ALIGN=center><input type="text" name="resultEstradiol"></td>
-      </tr>
-
-      <tr>
-        <td>Progesterona Plasmática</td>
-        <td ALIGN=center><input type="checkbox" name="checkProgesterona"></td>
-        <td ALIGN=center><input type="text" name="resultProgesterona"></td>
-      </tr>
-
-      <tr>
-        <td>Prolactina Plasmática</td>
-        <td ALIGN=center><input type="checkbox" name="checkProlactina"></td>
-        <td ALIGN=center><input type="text" name="resultProlactina"></td>
-      </tr>
-
-
-      <tr>
-        <td>Sulfato de DEHIDROEPIANDROSTERONA</td>
-        <td ALIGN=center><input type="checkbox" name="checkSD"></td>
-        <td ALIGN=center><input type="text" name="resultSD"></td>
-      </tr>
-
-      <tr>
-        <td>Delta 4 Androstenodiona</td>
-        <td ALIGN=center><input type="checkbox" name="checkD4A"></td>
-        <td ALIGN=center><input type="text" name="resultD4A"></td>
-      </tr>
-
-      <tr>
-        <td>5" Nucleotidasa</td>
-        <td ALIGN=center><input type="checkbox" name="check5N"></td>
-        <td ALIGN=center><input type="text" name="result5N"></td>
-      </tr>
-
-      <tr>
-        <td>Tiroglobulina</td>
-        <td ALIGN=center><input type="checkbox" name="checkTiroglobulina"></td>
-        <td ALIGN=center><input type="text" name="resultTiroglobulina"></td>
-      </tr>
-
-      <tr>
-        <td>Antig. Prostatico Especifico (PSA)</td>
-        <td ALIGN=center><input type="checkbox" name="checkPSA"></td>
-        <td ALIGN=center><input type="text" name="resultPSA"></td>
-      </tr>
-
-      <tr>
-        <td>PSA - Libre</td>
-        <td ALIGN=center><input type="checkbox" name="checkPSAL"></td>
-        <td ALIGN=center><input type="text" name="resultPSAL"></td>
-      </tr>
-
-      <tr>
-        <td>Testosterona Total</td>
-        <td ALIGN=center><input type="checkbox" name="checkTestosterona"></td>
-        <td ALIGN=center><input type="text" name="resultTestosterona"></td>
-      </tr>
-
-      <tr>
-        <td>Testosterona libre en suero</td>
-        <td ALIGN=center><input type="checkbox" name="checkTestosteronaL"></td>
-        <td ALIGN=center><input type="text" name="resultTestosteronaL"></td>
-      </tr>
-
-      <tr>
-        <td>Testosterona Biodisponible</td>
-        <td ALIGN=center><input type="checkbox" name="checkTestosteronaB"></td>
-        <td ALIGN=center><input type="text" name="resultTestosteronaB"></td>
-      </tr>
-
-      <tr>
-        <td>Acido Valproico (Valproato)</td>
-        <td ALIGN=center><input type="checkbox" name="checkValproico"></td>
-        <td ALIGN=center><input type="text" name="resultValproico"></td>
-      </tr>
-
-      <tr>
-        <td>Dosaje de Fenobarbital</td>
-        <td ALIGN=center><input type="checkbox" name="checkFenobarbital"></td>
-        <td ALIGN=center><input type="text" name="resultFenobarbital"></td>
-      </tr>
-
-      <tr>
-        <td>Inmunoglobulina E Total (IgE)</td>
-        <td ALIGN=center><input type="checkbox" name="checkIgE"></td>
-        <td ALIGN=center><input type="text" name="resultIgE"></td>
-      </tr>
-
-      <tr>
-        <td>Inmunoglobulina A</td>
-        <td ALIGN=center><input type="checkbox" name="checkIA"></td>
-        <td ALIGN=center><input type="text" name="resultIA"></td>
-      </tr>
-
-      <tr>
-        <td>Inmunoglobulina G</td>
-        <td ALIGN=center><input type="checkbox" name="checkIG"></td>
-        <td ALIGN=center><input type="text" name="resultIG"></td>
-      </tr>
-
-      <tr>
-        <td>Inmunoglobulina M</td>
-        <td ALIGN=center><input type="checkbox" name="checkIM"></td>
-        <td ALIGN=center><input type="text" name="resultIM"></td>
-      </tr>
-
-      <tr>
-        <td>Colinesterasa Serica</td>
-        <td ALIGN=center><input type="checkbox" name="checkCS"></td>
-        <td ALIGN=center><input type="text" name="resultCS"></td>
-      </tr>
-
-      <tr>
-        <td>Cortisol Plasmático basal.</td>
-        <td ALIGN=center><input type="checkbox" name="checkCPB"></td>
-        <td ALIGN=center><input type="text" name="resultCPB"></td>
-      </tr>
-
-      <tr>
-        <td>T3 Libre</td>
-        <td ALIGN=center><input type="checkbox" name="checkT3L"></td>
-        <td ALIGN=center><input type="text" name="resultT3L"></td>
-      </tr>
-
-      <tr>
-        <td>Hemoglobina Glicosilada HBA 1C</td>
-        <td ALIGN=center><input type="checkbox" name="checkHBA"></td>
-        <td ALIGN=center><input type="text" name="resultHBA"></td>
-      </tr>
-
-      <tr>
-        <td>Transferrina</td>
-        <td ALIGN=center><input type="checkbox" name="checkTransferrina"></td>
-        <td ALIGN=center><input type="text" name="resultTransferrina"></td>
-      </tr>
-
-      <tr>
-        <td>Ferritina</td>
-        <td ALIGN=center><input type="checkbox" name="checkFerritina"></td>
-        <td ALIGN=center><input type="text" name="resultFerritina"></td>
-      </tr>
-
-      <tr>
-        <td>Ferremia - Hierro Serico</td>
-        <td ALIGN=center><input type="checkbox" name="checkFerremia"></td>
-        <td ALIGN=center><input type="text" name="resultFerremia"></td>
-      </tr>
-
-      <tr>
-        <td>Antic. Anti Cardiolipina IgG</td>
-        <td ALIGN=center><input type="checkbox" name="checkIgG"></td>
-        <td ALIGN=center><input type="text" name="resultIgG"></td>
-      </tr>
-
-      <tr>
-        <td>Antic. Anti Cardiolipina IgM</td>
-        <td ALIGN=center><input type="checkbox" name="checkIgM"></td>
-        <td ALIGN=center><input type="text" name="resultIgM"></td>
-      </tr>
-      <tr>
-        <td>Grupo</td>
-        <td ALIGN=center><input type="checkbox" name="checkGrupo"></td>
-        <td ALIGN=center><input type="text" name="resultGrupo"></td>
-      </tr>
-
-      <tr>
-        <td>Factor RH</td>
-        <td ALIGN=center><input type="checkbox" name="checkFactorRH"></td>
-        <td ALIGN=center><input type="text" name="resultFactorRH"></td>
-      </tr>
-
-      <tr>
-        <td>Acido Folico</td>
-        <td ALIGN=center><input type="checkbox" name="checkAcidoFolico"></td>
-        <td ALIGN=center><input type="text" name="resultAcidoFolico"></td>
-      </tr>
-      <tr>
-        <td>Lactico Dehidrogenasa</td>
-        <td ALIGN=center><input type="checkbox" name="checkLDH"></td>
-        <td ALIGN=center><input type="text" name="resultLDH"></td>
-      </tr>
-      <tr>
-        <td>Beta 2 Microglobulina</td>
-        <td ALIGN=center><input type="checkbox" name="checkB2M"></td>
-        <td ALIGN=center><input type="text" name="resultB2M"></td>
-      </tr>
-      <tr>
-        <td>PROTEINOGROMA ELECTROFFORETICO</td>
-        <td ALIGN=center><input type="checkbox" name="checkPE"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>Proteinas Totales</td>
-        <td ALIGN=center><input type="checkbox" name="checkProteinasPE"></td>
-        <td ALIGN=center><input type="text" name="resultProteinasPE"></td>
-      </tr>
-
-      <tr>
-        <td>Albumina</td>
-        <td ALIGN=center><input type="checkbox" name="checkAlbuminaPE"></td>
-        <td ALIGN=center><input type="text" name="resultAlbuminaPE"><input type="text" name="resultAlbuminaPE1"></td>
-      </tr>
-      <tr>
-        <td>Alfa-1 GLOBULINA</td>
-        <td ALIGN=center><input type="checkbox" name="checkA1G"></td>
-        <td ALIGN=center><input type="text" name="resultA1G1"><input type="text" name="resultA1G2"></td>
-      </tr>
-      <tr>
-        <td>Alfa-2 GLOBULINS</td>
-        <td ALIGN=center><input type="checkbox" name="checkA2G"></td>
-        <td ALIGN=center><input type="text" name="resultA2G1"><input type="text" name="resultA2G2"></td>
-
-      </tr>
-
-      <tr>
-        <td>Beta-1 GLOBULINA</td>
-        <td ALIGN=center><input type="checkbox" name="checkB1G"></td>
-        <td ALIGN=center><input type="text" name="resultB1G1"><input type="text" name="resultB1G2"></td>
-
-      </tr>
-
-      <tr>
-        <td>Beta-2 GLOBULINA</td>
-        <td ALIGN=center><input type="checkbox" name="checkB2G"></td>
-        <td ALIGN=center><input type="text" name="resultB2G1"><input type="text" name="resultB2G2"></td>
-      </tr>
-      <tr>
-        <td>GAMMA GLOBULINA</td>
-        <td ALIGN=center><input type="checkbox" name="checkGG"></td>
-        <td ALIGN=center><input type="text" name="resultGG1"><input type="text" name="resultGG2"></td>
-      </tr>
-
-      <tr>
-        <td>CULTIVO PARA MYCOPLASMA HOMINIS</td>
-        <td ALIGN=center><input type="checkbox" name="checkMycoplasma"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>Tipo de muestra</td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultMuestra"></td>
-      </tr>
-
-      <tr>
-        <td>Cultivo e identificacion. Resultado:</td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultCIMH"></td>
-      </tr>
-
-      <tr>
-        <td>Recuento de unidades</td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultRUMH"></td>
-      </tr>
-      <tr>
-        <td>Sensibilidad</td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultSMH"></td>
-      </tr>
-
-      <tr>
-        <td>CULTIVO PARA UREAPLASMA UREALITICUM</td>
-        <td ALIGN=center><input type="checkbox" name="checkUreaplasma"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>Cultivo e identificacion. Resultado:</td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultCIUU"></td>
-      </tr>
-
-      <tr>
-        <td>Recuento de unidades</td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultRUUU"></td>
-      </tr>
-      <tr>
-        <td>Sensibilidad</td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultSUU"></td>
-      </tr>
-
-      <tr>
-        <td>ESPERMOGRAMA</td>
-        <td ALIGN=center><input type="checkbox" name="checkEspermograma"></td>
-        <td ALIGN=center></td>
-      </tr>
-      <tr>
-        <td>Caracteristicas fisicas</td>
-        <td ALIGN=center><input type="checkbox" name="checkCaracFisicas"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Volumen</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultVolumenE"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">p.H.</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultPHE"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Viscosidad</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultViscosidad"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Tiempo de licuacion</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultTpoLicuacion"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Numero de espermatozoides</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultNumEspermatozoides"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Expresado en</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultExpresados"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Por ml</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultMl"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Totales</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultTotalesE"></td>
-      </tr>
-
-      <tr>
-        <td>Estudio de la movilidad</td>
-        <td ALIGN=center><input type="checkbox" name="checkMovilidad"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Formas normales</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultNormales"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Formas Muertas</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultMuertas"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Formas moviles</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultMoviles"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Grado I</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultGI"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Grado II</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultGII"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Grado III</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultGIII"></td>
-      </tr>
-
-      <tr>
-        <td>Estudio de los elementos agregados</td>
-        <td ALIGN=center><input type="checkbox" name="checkEEA"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Celulas</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultCEEA"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Espermatogonias</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultEEEA"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Hematies</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultHEEA"></td>
-      </tr>
-
-      <tr>
-        <td>Determinaciones quimicas</td>
-        <td ALIGN=center><input type="checkbox" name="checkEDQ"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Acido citrico</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultEAC"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Fructosa</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultEF"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Alfa glucosidasa neutral</li>
-          </ul>
-        </td>
-        <td ALIGN=center></td>
-        <td ALIGN=center><input type="text" name="resultSemen"></td>
-      </tr>
-
-      <tr>
-        <td>Anticuerpo Anti-Mitocondrial (AMA)</td>
-        <td ALIGN=center><input type="checkbox" name="checkAMA"></td>
-        <td ALIGN=center><input type="text" name="resultAMA"></td>
-      </tr>
-
-      <tr>
-        <td>HVA-Ac IgG (Anticuerpo Anti-Hepatitis A IgG)</td>
-        <td ALIGN=center><input type="checkbox" name="checkHVA"></td>
-        <td ALIGN=center><input type="text" name="resultHVA"></td>
-      </tr>
-
-      <tr>
-        <td>Hepatitis C (HCV) (Anticuerpo Anti-Hepatitis C)</td>
-        <td ALIGN=center><input type="checkbox" name="checkHCV"></td>
-        <td ALIGN=center><input type="text" name="resultHCV"></td>
-      </tr>
-
-      <tr>
-        <td>Virus EPSTEIN BARR - Anti VCA (IgG)</td>
-        <td ALIGN=center><input type="checkbox" name="checkVirusEB"></td>
-        <td ALIGN=center><input type="text" name="resultVirusEB"></td>
-      </tr>
-
-      <tr>
-        <td>Hepatitis B Antigeno de Superficie (HBS Ag) <br> Metodo: Inmunocrografico</td>
-        <td ALIGN=center><input type="checkbox" name="checkHBSI"></td>
-        <td ALIGN=center><input type="text" name="resultHBSI"></td>
-      </tr>
-
-      <tr>
-        <td>Hepatitis B Antigeno de Superficie (HBS Ag) <br> Metodo: Quimioluminiscencia</td>
-        <td ALIGN=center><input type="checkbox" name="checkHBSQ"></td>
-        <td ALIGN=center><input type="text" name="resultHBSQ"></td>
-      </tr>
-
-
-      <tr>
-        <td>Antic. Anti MUSK</td>
-        <td ALIGN=center><input type="checkbox" name="checkMUSK"></td>
-        <td ALIGN=center><input type="text" name="resultMUSK"></td>
-      </tr>
-
-      <tr>
-        <td>Prueba de tolerancia oral a la glucosa</td>
-        <td ALIGN=center><input type="checkbox" name="checkGGlucemia"></td>
-        <td ALIGN=center><input type="text" name="resultGGlucemia"></td>
-      </tr>
-
-      <tr>
-        <td>Glucemia basal</td>
-        <td ALIGN=center><input type="checkbox" name="checkGl"></td>
-        <td ALIGN=center><input type="text" name="resultGl"></td>
-      </tr>
-
-      <tr>
-        <td>Curva de tolerancia a la glucosa</td>
-        <td ALIGN=center><input type="checkbox" name="checkCTG"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Glucosa 60 min</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkGlucosa60"></td>
-        <td ALIGN=center><input type="text" name="resultGlucosa60"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Glucosa 120 min</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkGlucosa120"></td>
-        <td ALIGN=center><input type="text" name="resultGlucosa120"></td>
-      </tr>
-
-      <tr>
-        <td>Fructosamina</td>
-        <td ALIGN=center><input type="checkbox" name="checkFructosamina"></td>
-        <td ALIGN=center><input type="text" name="resultFructosamina"></td>
-      </tr>
-
-      <tr>
-        <td>COAGULOGRAMA BASICO</td>
-        <td ALIGN=center><input type="checkbox" name="checkCoagulograma"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Tiempo de coagulacion</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkTpoCoagulacion"></td>
-        <td ALIGN=center><input type="text" name="resultTpoCoagulacion"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Tiempo de sangria</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkTpoSangria"></td>
-        <td ALIGN=center><input type="text" name="resultTpoSangria"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Tiempo de protrombina</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkTpoProtrombina"></td>
-        <td ALIGN=center><input type="text" name="resultTpoProtrombina"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Concentracion de protrombina</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkConcentracionProtrombina"></td>
-        <td ALIGN=center><input type="text" name="resultConcentracionProtrombina"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Ratio</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkRatio"></td>
-        <td ALIGN=center><input type="text" name="resultRatio"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">I.N.R</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkINR"></td>
-        <td ALIGN=center><input type="text" name="resultINR"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Tiempo parcial de kaolin (KPTT)</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkKPTT"></td>
-        <td ALIGN=center><input type="text" name="resultKPTT"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Recuento de plaquetas</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkRecuentoPlaquetas"></td>
-        <td ALIGN=center><input type="text" name="resultRecuentoPlaquetas"></td>
-      </tr>
-
-      <tr>
-        <td>Proteina C reactiva</td>
-        <td ALIGN=center><input type="checkbox" name="checkProteinaC"></td>
-        <td ALIGN=center><input type="text" name="resultProteinaC"></td>
-      </tr>
-
-      <tr>
-        <td>Sifilis cualitativa (Ac. Anti Trep. Pallidum)</td>
-        <td ALIGN=center><input type="checkbox" name="checkSifilis"></td>
-        <td ALIGN=center><input type="text" name="resultSifilis"></td>
-      </tr>
-
-      <tr>
-        <td>PCR Cuantitativa</td>
-        <td ALIGN=center><input type="checkbox" name="checkPCR"></td>
-        <td ALIGN=center><input type="text" name="resultPCR"></td>
-      </tr>
-
-      <tr>
-        <td>Antiestreptolisina "0"</td>
-        <td ALIGN=center><input type="checkbox" name="checkAntiestrep0"></td>
-        <td ALIGN=center><input type="text" name="resultAntiestrep0"></td>
-      </tr>
-
-      <tr>
-        <td>Latex artritis reumatoidea cuantitativo</td>
-        <td ALIGN=center><input type="checkbox" name="checkLatex"></td>
-        <td ALIGN=center><input type="text" name="resultLatex"></td>
-      </tr>
-
-      <tr>
-        <td>Reaccion de Paul Bunnel -Monotest-</td>
-        <td ALIGN=center><input type="checkbox" name="checkPaulBunnel"></td>
-        <td ALIGN=center><input type="text" name="resultPaulBunnel"></td>
-      </tr>
-
-
-      <tr>
-        <td>V.D.R.L. TEST</td>
-        <td ALIGN=center><input type="checkbox" name="checkVDRL"></td>
-        <td ALIGN=center><input type="text" name="resultVDRL"></td>
-      </tr>
-
-      <tr>
-        <td>BACILOSCOPIA DIRECTA (BAAR)</td>
-        <td ALIGN=center><input type="checkbox" name="checkBAAR"></td>
-        <td ALIGN=center><input type="text" name="resultBAAR"></td>
-      </tr>
-
-      <tr>
-        <td>PARATHORMONA'PTH Molecula intacta</td>
-        <td ALIGN=center><input type="checkbox" name="checkPTH"></td>
-        <td ALIGN=center><input type="text" name="resultPTH"></td>
-      </tr>
-
-      <tr>
-        <td>VITAMINA B12</td>
-        <td ALIGN=center><input type="checkbox" name="checkB12"></td>
-        <td ALIGN=center><input type="text" name="resultB12"></td>
-      </tr>
-
-      <tr>
-        <td>ANTICUERPOS ANTI VIRUS DE LA INMUNODEFICIENCIA HUMANA H.I.V. (I+II)</td>
-        <td ALIGN=center><input type="checkbox" name="checkHIV"></td>
-        <td ALIGN=center><input type="text" name="resultHIV"></td>
-      </tr>
-
-      <tr>
-        <td>Insulina (Basal)</td>
-        <td ALIGN=center><input type="checkbox" name="checkInsulina"></td>
-        <td ALIGN=center><input type="text" name="resultInsulina"></td>
-      </tr>
-
-      <tr>
-        <td>Indice de resustebcua a la insulina (HOMA-IR)</td>
-        <td ALIGN=center><input type="checkbox" name="checkHoma"></td>
-        <td ALIGN=center><input type="text" name="resultHoma"></td>
-      </tr>
-
-      <tr>
-        <td>Homocisteina (Plasmatica)</td>
-        <td ALIGN=center><input type="checkbox" name="checkHomocisteina"></td>
-        <td ALIGN=center><input type="text" name="resultHomocisteina"></td>
-      </tr>
-
-      <tr>
-        <td>SOMF - Sangre Oculta en Materia Fecal</td>
-        <td ALIGN=center><input type="checkbox" name="checkSOMF"></td>
-        <td ALIGN=center><input type="text" name="resultSOMF"></td>
-      </tr>
-
-      <tr>
-        <td>DMF - Directo Materia Fecal</td>
-        <td ALIGN=center><input type="checkbox" name="checkDMF"></td>
-        <td ALIGN=center><input type="text" name="resultDMF"></td>
-      </tr>
-      <tr>
-        <td>Parasitologico seriado</td>
-        <td ALIGN=center><input type="checkbox" name="checkPS"></td>
-        <td ALIGN=center></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Test de Graham</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkTestGraham"></td>
-        <td ALIGN=center><input type="text" name="resultTestGraham"></td>
-      </tr>
-
-      <tr>
-        <td>
-          <ul>
-            <li type="disc">Materia Fecal</li>
-          </ul>
-        </td>
-        <td ALIGN=center><input type="checkbox" name="checkMateriaFecal"></td>
-        <td ALIGN=center><input type="text" name="resultMateriaFecal"></td>
-      </tr>
-
-
-    </table>
-
-
-    <br><br>
-    <div align="center" style="font-family: 'Calibri'; font-size: 18px;">
-      Observaciones:
-      <br>
-      <textarea name="campotexto"></textarea>
-    </div>
-
-    <br><br>
-
-    <div align="center">
-      <input type="submit" style="font-family: 'Calibri'; font-size: 18px;" name="crearpdf" class="btn btn-success"
-        value="Crear PDF">
-    </div>
-  </form>
-
+  </div>
   <br><br>
 
 </body>

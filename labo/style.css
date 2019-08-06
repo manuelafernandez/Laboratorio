@@ -1,0 +1,29 @@
+.top-right {
+    position: absolute;
+    right: 18px;
+    top: 10px;
+    }
+
+h3 {
+    color: rgb(54, 42, 228);
+    align-self: center;
+}
+
+.links>a {
+color: rgb(54, 42, 228);
+padding: 0 25px;
+font-size: 18px;
+font-weight: normal;
+}
+
+  .flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  textarea {
+    position: relative;
+    font-family: 'Courier New', Courier, monospace;
+    width: 80%;
+  }

@@ -4,9 +4,9 @@
 include_once("../labo/conexionDB.php");
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['actualizar'])) {
-    if (!empty($_POST['dni1'])) {
-        if (!isset($_POST['dni1'])) { } else {
-            $dni = $_POST["dni1"];
+    if (!empty($_POST['dni'])) {
+        if (!isset($_POST['dni'])) { } else {
+            $dni = $_POST["dni"];
             $sql = "SELECT nombreapellido,sexo,fechanacimiento,localidad,domicilio,celular,mail FROM clientes WHERE documento='$dni'";
             $resultado = $conn->query($sql);
 
@@ -24,10 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['actualizar'])) {
 
                 if (isset($_POST['nombreapellido']))
                     $nombreapellido = $_POST["nombreapellido"];
-
-
-                if (isset($_POST['dni']))
-                    $dni = $_POST["dni"];
 
                 if (isset($_POST['sexo']))
                     $sexo = $_POST["sexo"];
@@ -49,8 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['actualizar'])) {
 
                 $e = 0;
 
-                $sql = "UPDATE clientes SET nombreapellido = '$nombreapellido', documento = '$dni', sexo = '$sexo', fechanacimiento = '$fechanacimiento', edad = '$e', localidad ='$localidad', domicilio= '$domicilio', celular='$celular', mail = '$email' 
-                WHERE documento = '$dni'";
+                $sql = "UPDATE `clientes` SET `nombreapellido` = '$nombreapellido', `documento` = '$dni', `sexo` = '$sexo', `fechanacimiento` = '$fechanacimiento', `edad` = '$e', `localidad` ='$localidad', `domicilio`= '$domicilio', `celular`='$celular', `mail` = '$email' 
+                WHERE `documento` = '$dni'"; 
                 $conn->query($sql);
 
                
