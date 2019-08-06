@@ -24,7 +24,6 @@
                         $_SESSION['documento'] = $row["documento"];
                         $_SESSION['mail'] = $row["mail"];
     
-                        echo "hello";
                         Header("Location: gestion.html"); 
                     }
                 } else {

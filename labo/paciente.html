@@ -1,144 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nuevo Paciente</title>
-  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css" rel="stylesheet" type="text/css" /></head>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script> 
-  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0//js/froala_editor.pkgd.min.js"></script>
-  <link rel="stylesheet" href="css/estilo.css">
-  <link href="https://fonts.googleapis.com/css?family=calibri:100,600" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <style>
-    .top-right{
-                position: absolute;
-                right: 18px;
-                top: 10px;
-            }
+    <title>Nuevo Paciente</title>
 
-    .links > a {
-                color: rgb(54, 42, 228);
-                padding: 0 25px;
-                font-size: 18px;
-                font-weight: normal;
-                font-family: 'calibri', sans-serif;
-                letter-spacing: .1rem;
-                text-decoration: none;
-            }
+    <!-- Icono -->
+    <link rel="icon" type="image/png" href="images/icono.png">
 
-    body{
-        font-size: 18px;
-        font-family: 'calibri';
-        width: 100%;
-    }
-  </style>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
+  <div class="container">
     <div class="top-right links">
       <a href="home.html">Principal</a>
     </div>
+  
+    <br>
+    
+    <div class="row justify-content-md-center">
+      <div class="col-6">
+        <div class="text-center"><h3>Nuevo Paciente</h3></div>
 
-  <form action="paciente.php" method="post">
-		<div class="c-form-container section-container section-container-image-bg">
-	    <div class="container">
-	            
-	      <div class="row">
-	        <div class="col-sm-7 col-sm-offset-2 c-form-box wow fadeInUp">
-	            		
-	          <div class="c-form-top">
-              <div class="c-form-top-left">
-                <h3 style="color: rgb(54, 42, 228);">Nuevo Paciente</h3>
-              </div>
-            </div>
+        <form action="paciente.php" method="post">
+          <div class="form-group row">                  
+            <label for="nombreapellido">Nombre y apellido</label>
+            <input type="text" class="form-control" id="nombreapellido" name="nombreapellido" required>
+          </div>
 
-            <div class="c-form-bottom">
-		        <div class="form-group">
-		            <div style="font-family: 'Calibri'; font-size: 18px;">
-                        <p>Apellido y nombre</p> 
-                      </div>
-		            <input name="nombreapellido" placeholder="..." class="c-form-name form-control" id="c-form-ApellidoNombre">
-		        </div>
-                        
-                <div class="form-group">
-                    <div style="font-family: 'Calibri'; font-size: 18px;">
-                        <p>N° de documento</p> 
-                      </div>
-                    <label>
-                        <input type="number" name="documento" placeholder="..." class="c-form-name form-control" id="c-form-documento">
-                    </label>
-                </div>
+          <div class="form-group row">                  
+              <label for="documento">Número de documento</label>
+              <input type="number" class="form-control" id="documento" name="documento" required>                  
+          </div>
 
-                <select NAME="sexo" style="font-family: 'Calibri'; font-size: 18px;" >
-                    <option value="Sexo">Sexo</option>
-                    <option value="Femenino" >Femenino</option>
-                    <option value="Masculino">Masculino</option>
-                    <option value="Otros" >Otros</option>
-                </select>
-                <br><br>
-                
-                <div class="form-group">
-                    <div style="font-family: 'Calibri'; font-size: 18px;">
-                        <p>Fecha de nacimiento</p> 
-                      </div>
-                    <input type="date" name="nacimiento" placeholder="..." class="c-form-name form-control" id="c-form-nacimiento">
-                </div>
-               
-                <div class="form-group">
-                    <div style="font-family: 'Calibri'; font-size: 18px;">
-                        <p>Edad</p> 
-                      </div>
-                    <input type="number" name="edad" placeholder="..." class="c-form-name form-control" id="c-form-edad">
-                </div>
+          <div class="form-group row">   
+              <label for="sexo">Sexo</label>
+                              
+              <select name="sexo" class="form-control">
+                  <option selected>Seleccione</option>
+                  <option value="Femenino">Femenino</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Otros">Otros</option>
+                </select>              
+          </div>
 
-                <div class="form-group">
-                    <div style="font-family: 'Calibri'; font-size: 18px;">
-                        <p>Localidad</p> 
-                      </div>
-                    <input name="localidad" placeholder="..." class="c-form-name form-control" id="c-form-localidad">
-                </div>
+          <div class="form-group row">                  
+              <label for="nacimiento">Fecha de nacimiento</label>
+              <input type="date" class="form-control" id="nacimiento" name="nacimiento" >                  
+          </div>
 
-                <div class="form-group">
-                    <div style="font-family: 'Calibri'; font-size: 18px;">
-                        <p>Domicilio</p> 
-                      </div>
-                    <input name="domicilio" placeholder="..." class="c-form-name form-control" id="c-form-domicilio">
-                </div>
+          <div class="form-group row">  
+              <div class="col">                
+              <label for="domicilio">Domicilio</label>
+              <input type="text" class="form-control" id="domicilio" name="domicilio">  
+              </div>                
+          
+              <div class="col">                
+              <label for="localidad">Localidad</label>
+              <input type="text" class="form-control" id="localidad" name="localidad">  
+              </div>                
+          </div>
 
-                <div class="form-group">
-                    <div style="font-family: 'Calibri'; font-size: 18px;">
-                        <p>Celular</p> 
-                      </div>
-                    <input type="tel" name="celular" placeholder="..." class="c-form-name form-control" id="c-form-celular">
-                </div>
+          <div class="form-group row">                  
+              <label for="celular">Celular</label>
+              <input type="number" class="form-control" id="celular" name="celular" >                  
+          </div>
 
-                <div class="form-group">
-                    <div style="font-family: 'Calibri'; font-size: 18px;">
-                        <p>E-mail</p> 
-                      </div>
-                    <input name="mail" placeholder="..." class="c-form-name form-control" id="c-form-mail">
-                </div>
+          <div class="form-group row">                  
+              <label for="mail">E-mail</label>
+              <input type="email" class="form-control" id="mail" name="mail" >                  
+          </div>
 
-                <div align="center">
-                  <input type="submit" style="font-family: 'Calibri'; font-size: 18px;" name="guardar" class="btn btn-success" value="Guardar Paciente">
-                </div>
+          <div class="text-center">
+              <button type="submit" name="guardar" class="btn btn-success" value="Guardar Paciente" >Guardar Paciente</button>
+          </div>
+          
+        </form>
 
-                <br>
-
-              </form>
-            </div> 
-
-        </div>
       </div>
+    </div>
+  </div>
 </body>
 
-</html>
+</html>>

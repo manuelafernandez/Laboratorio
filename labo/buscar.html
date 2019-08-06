@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Buscar paciente</title>
+
+    <!-- Icono -->
+    <link rel="icon" type="image/png" href="images/icono.png">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-right links">
+            <a href="home.html">Principal</a>
+        </div>
+        <br>
+    
+        <div class="row justify-content-md-center">
+            <div class="col-6">
+                <div class="text-center"><h3>Buscar paciente</h3></div>
+                <form action="buscar.php" method="post">
+                    <div class="form-group row">                  
+                        <label for="dni">Número de documento</label>
+                        <input type="number" class="form-control" id="dni" name="dni" >                  
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" name="buscar" class="btn btn-success">Buscar paciente</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -20,7 +20,7 @@ class MYPDF extends TCPDF {
       $this->Write(0, 'Laboratorio de Análisis Clínicos', '', 0, 'R', true, 0, false, false, 0);
       //Subtitulo
       $this->SetFont('courier', '', 10);
-      $this->MultiCell(0, 15, '9 de Julio 1073 - Campana', 'B', 'C', 0, 2, '' ,15, false);
+      $this->MultiCell(0, 15, '9 de Julio 1073 - Campana - Tel.: 03489 - 468523', 'B', 'C', 0, 2, '' ,15, false);
       $this->MultiCell(0, 15, 'E-mail: laboratorio.laccampana@gmail.com', 'B', 'C', 0, 2, '' ,15, false);
   }
 
@@ -541,7 +541,8 @@ $pdf->Ln(7);
     if(!isset($_POST['checkGlobulinas'])) { 
     }else {
         $pdf->Ln(5);
-        $nombre = 'GLOBULINAS TOTALES                   : '.$_POST['resultGlobulinas'].' gr/100 ml'."\n";
+        $globulina = $_POST['resultProteinas'] - $_POST['resultAlbumina'];
+        $nombre = 'GLOBULINAS TOTALES                   : '.$globulina.' gr/100 ml'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
     }
 
@@ -553,7 +554,8 @@ $pdf->Ln(7);
     if(!isset($_POST['checkRelacionAG'])) { 
     }else {
         $pdf->Ln(5);
-        $total = $_POST['resultAlbumina']/$_POST['resultGlobulinas'];
+        $totale = $_POST['resultAlbumina']/$globulina;
+        $total = number_format($totale, 2, '.', '');
         $nombre = 'Relación Albumina/Globulina          : '.$total.' gr/100 ml'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
     }
@@ -562,7 +564,7 @@ $pdf->Ln(7);
         $pdf->addPage();
         $pdf->Ln(7);
       }
-
+      
       if(!isset($_POST['checkAlfaAmilasa'])) { // Comprobamos si el nombre esta vacio
         // Aqui saltaria el error ya que el campo nombre esta vacio
     }else {
@@ -583,7 +585,7 @@ $pdf->Ln(7);
     if(!isset($_POST['checkGGTP'])) { 
     }else {
         $pdf->Ln(5);   
-        $nombre = 'GAMMA GUTAMIL TRANS PEP. -GGT-       : '.$_POST['result5N'].' mU/ml'."\n";
+        $nombre = 'GAMMA GUTAMIL TRANS PEP. -GGT-       : '.$_POST['resultGGTP'].' mU/ml'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 8);
         $nombre = '         Método: SZASZ'."\n".'         Valor de referencia: Hombres: 6 a 28 mU/ml'."\n".'                              Mujeres: 4 a 18 mU/ml'."\n";
@@ -646,8 +648,12 @@ $pdf->Ln(7);
     if(!isset($_POST['checkIonograma'])) { 
     }else {
         $pdf->Ln(5);
-        $nombre = 'IONIGRAMA PLASMATICO'."\n".'Método: Ión Selectivo (DIESTRO 103 AP)'."\n";
+        $nombre = 'IONOGRAMA PLASMATICO'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+        $pdf->SetFont('courier', '', 8);
+        $nombre = 'Método: Ión Selectivo (DIESTRO 103 AP)'."\n";
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
+        $pdf->SetFont('courier', '', 12); 
 
         $nombre = 'Sodio                                : '.$_POST['resultSodio'].' meq/l';
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
@@ -721,7 +727,42 @@ $pdf->Ln(7);
         $pdf->addPage();
         $pdf->Ln(7);
       }
+      if(!isset($_POST['checkVol24hs'])) { 
+    }else {
+        $pdf->Ln(5);
+        $nombre = 'Volumen                              : '.$_POST['resultVol24hs']."\n";
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    }
 
+    if($pdf->getY()+5>250){
+        $pdf->addPage();
+        $pdf->Ln(7);
+      }
+
+      if(!isset($_POST['checkPeso'])) { 
+    }else {
+        $pdf->Ln(5);
+        $nombre = 'Peso                                 : '.$_POST['resultPeso']."\n";
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    }
+    
+    if($pdf->getY()+5>250){
+        $pdf->addPage();
+        $pdf->Ln(7);
+      }
+    
+    if(!isset($_POST['checkAltura'])) {
+    }else {
+        $pdf->Ln(5);
+        $nombre = 'Altura                               : '.$_POST['resultAltura']."\n";
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    }
+    
+        
+    if($pdf->getY()+5>250){
+        $pdf->addPage();
+        $pdf->Ln(7);
+      }
 
     if(!isset($_POST['checkDosajeCO'])) { 
     }else {
@@ -733,8 +774,6 @@ $pdf->Ln(7);
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->Ln(4);
         $pdf->SetFont('courier', '', 12);
-        $nombre = 'VOLUMEN de 24 hs                     : '.$_POST['resultVolumenDCO']."\n";
-        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
     }
 
     if($pdf->getY()+5>250){
@@ -761,7 +800,7 @@ $pdf->Ln(7);
     if(!isset($_POST['checkMagnesioO'])) { 
     }else {
         $pdf->Ln(5);
-        $nombre = 'MAGNESIO EN ORINA                    : '.$_POST['resultMagnesioO'].' mg /24hs'."\n";
+        $nombre = 'DOSAJE DE MAGNESIO EN ORINA                    : '.$_POST['resultMagnesioO'].' mg /24hs'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 8);
         $nombre = '        Método: DMANN AUTOMATIZADO'."\n".'        Valor de referencia: de 50 - 150 mg /24hs';
@@ -783,8 +822,6 @@ $pdf->Ln(7);
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->Ln(4);
         $pdf->SetFont('courier', '', 12);
-        $nombre = 'VOLUMEN de 24 hs                     : '.$_POST['resultVolumenDPU']."\n";
-        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
     }
 
     if($pdf->getY()+5>250){
@@ -802,14 +839,27 @@ $pdf->Ln(7);
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->Ln(4);
         $pdf->SetFont('courier', '', 12);
-        $nombre = 'VOLUMEN de 24 hs                     : '.$_POST['resultVolumenDAO']."\n";
-        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
     }
     if($pdf->getY()+5>250){
         $pdf->addPage();
         $pdf->Ln(7);
       }
 
+      if($pdf->getY()+5>250){
+        $pdf->addPage();
+        $pdf->Ln(7);
+      }
+    
+    if(!isset($_POST['checkDosajeAUO'])) { 
+    }else {
+        $pdf->Ln(5);
+        $nombre = 'DOSAJE DE ACIDO URICO EN ORINA       : '.$_POST['resultDosajeAUO'].' mg/24hs %'."\n";
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+        $pdf->SetFont('courier', '', 8);
+        $nombre = '        Valor de referencia: 250 a 750 mg/24hs %';
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+        $pdf->SetFont('courier', '', 12);
+    }
 //-------------------------------------------------------------------------------
   
 
@@ -818,13 +868,28 @@ $pdf->Ln(7);
         $pdf->Ln(7);
       }
 
-   if(!isset($_POST['checkCreatininuria'])) { 
+      if(!isset($_POST['checkCreatinuriag/24'])) { 
+    }else {
+        $pdf->Ln(5);
+        $nombre = 'CREATINURIA                          : '.$_POST['resultCreatinuriag/24'].' g/24 hs'."\n";
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+        $pdf->SetFont('courier', '', 8);
+        $nombre = '        Método: Cinético'."\n".'        Valor de referencia: 0.50 a 2.00 g/24hs';
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
+        $pdf->SetFont('courier', '', 12);
+    }
+    if($pdf->getY()+5>250){
+        $pdf->addPage();
+        $pdf->Ln(7);
+      }
+
+   if(!isset($_POST['checkCreatinuriamg/dl'])) { 
     }else {
     $pdf->Ln(5);
-    $nombre = 'CREATININURIA                        : '.$_POST['resultCreatininuria'].' g/24hs'."\n";
+    $nombre = 'CREATININURIA                        : '.$_POST['resultCreatinuriamg/dl'].' mg/dl'."\n";
     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
     $pdf->SetFont('courier', '', 8);
-    $nombre = '        Método: Cinético'."\n".'        Valor de referencia: 0.50 a 2.00 g/24hs';
+    $nombre = '        Método: Cinético'."\n".'        Valor de referencia: 0.50 a 1.40 mg/dl';
     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
     $pdf->SetFont('courier', '', 12);
     }
@@ -834,53 +899,7 @@ if($pdf->getY()+5>250){
     $pdf->Ln(7);
   }
 
-if(!isset($_POST['checkCreatininemia'])) { 
-}else {
-    $pdf->Ln(5);
-    $nombre = 'CREATININEMIA                        : '.$_POST['resultCreatininemia'].' mg %'."\n";
-    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-    $pdf->SetFont('courier', '', 8);
-    $nombre = '        Método: Cinético'."\n".'        Valor de referencia: 0.50 a 1.40 mg %';
-    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
-    $pdf->SetFont('courier', '', 12);
-}
-if($pdf->getY()+5>250){
-    $pdf->addPage();
-    $pdf->Ln(7);
-  }
-
-if(!isset($_POST['checkDiuresis'])) { 
-}else {
-    $pdf->Ln(5);
-    $nombre = 'Diuresis                             : '.$_POST['resultDiuresis']."\n";
-    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-}
-
-if($pdf->getY()+5>250){
-    $pdf->addPage();
-    $pdf->Ln(7);
-  }
-
-if(!isset($_POST['checkPeso'])) { 
-}else {
-    $pdf->Ln(5);
-    $nombre = 'Peso                                 : '.$_POST['resultPeso']."\n";
-    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-}
-
-if($pdf->getY()+5>250){
-    $pdf->addPage();
-    $pdf->Ln(7);
-  }
-
-if(!isset($_POST['checkAltura'])) {
-}else {
-    $pdf->Ln(5);
-    $nombre = 'Altura                               : '.$_POST['resultAltura']."\n";
-    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-}
-
-if($pdf->getY()+5>250){
+  if($pdf->getY()+5>250){
     $pdf->addPage();
     $pdf->Ln(7);
   }
@@ -917,32 +936,32 @@ if($pdf->getY()+5>250){
     $pdf->Ln(7);
   }
 
-if(!isset($_POST['checkDosajeAUO'])) { 
+  if(empty($_POST['obsorina'])) { 
 }else {
     $pdf->Ln(5);
-    $nombre = 'DOSAJE DE ACIDO URICO EN ORINA       : '.$_POST['resultDosajeAUO'].' mg/24hs %'."\n";
-    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-    $pdf->SetFont('courier', '', 8);
-    $nombre = '        Valor de referencia: 250 a 750 mg/24hs %';
-    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', 'B', 14);
+    $nombre = 'OBSERVACIONES:'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
     $pdf->SetFont('courier', '', 12);
+    $nombre = ''.$_POST['obsorina'];
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
 }
-
 if($pdf->getY()+5>250){
     $pdf->addPage();
     $pdf->Ln(7);
   }
 
-if(!isset($_POST['checkCreatininaU'])) {
-}else {
-    $pdf->Ln(5);
-    $nombre = 'CREATININA URINARIA                  : '.$_POST['resultCreatininaU'].' g/24hs %'."\n";
-    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-    $pdf->SetFont('courier', '', 8);
-    $nombre = '        Método: Cinético'."\n".'        Valor de referencia: 0.80 a 2.0 g/24hs %';
-    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-    $pdf->SetFont('courier', '', 12);
-}
+
+// if(!isset($_POST['checkCreatininaU'])) {
+// }else {
+//     $pdf->Ln(5);
+//     $nombre = 'CREATININA URINARIA                  : '.$_POST['resultCreatininaU'].' g/24hs %'."\n";
+//     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+//     $pdf->SetFont('courier', '', 8);
+//     $nombre = '        Método: Cinético'."\n".'        Valor de referencia: 0.80 a 2.0 g/24hs %';
+//     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+//     $pdf->SetFont('courier', '', 12);
+// }
 
 if($pdf->getY()+5>250){
     $pdf->addPage();
@@ -969,6 +988,8 @@ if(!isset($_POST['checkEFQO'])) {
         $nombre = 'EXAMEN FISICO QUIMICO ORGANOLEPTICO';
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $nombre = 'Color          : '.$_POST['resultColor']."\n";
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+        $nombre = 'Aspecto        : '.$_POST['resultAspecto']."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $nombre = 'p.H.           : '.$_POST['resultPH']."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
@@ -1323,10 +1344,44 @@ if(!isset($_POST['checkDAEBH'])) {
     if(!isset($_POST['checkGCC'])) { 
     }else {
         $pdf->Ln(5);   
-        $nombre = 'GONADOTROFINA CORIONICA CUANTITATIVA : '.$_POST['resultTiroglobulina'].' mUl/ml'."\n";
+        $nombre = 'GONADOTROFINA CORIONICA CUANTITATIVA : '.$_POST['resultGCC'].' mUl/ml'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 8);
         $nombre = '         Método: Quimioluminiscencia directa'."\n".'         Valor de referencia: - Hombres sanos -'."\n".'                              menor de 2.0 mUl/ml'."\n".'                              - Mujeres (no embarazadas) -'."\n".'                              menor de 6.0 mUl/ml'."\n".'                              - Mujeres embarazadas -'."\n".'                              0.2 - 1 semana: 5-50 mUl/ml'."\n".'                              1 - 2 semanas: 50-500 mUl/ml'."\n".'                              2 - 3 semanas: 100-5000 mUl/ml'."\n".'                              3 - 4 semanas: 500-10000 mUl/ml'."\n".'                              4 - 5 semanas: 1000-50000 mUl/ml'."\n".'                              5 - 6 semanas: 10000-100000 mUl/ml'."\n".'                              6 - 8 semanas: 15000-200000 mUl/ml'."\n".'                              8 - 12 semanas: 10000-100000 mUl/ml'."\n";
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+        $pdf->SetFont('courier', '', 12);
+    }
+
+    if($pdf->getY()+5>250){
+        $pdf->addPage();
+        $pdf->Ln(7);
+      }
+    
+      if(!isset($_POST['check25H'])) { // Comprobamos si el nombre esta vacio
+        // Aqui saltaria el error ya que el campo nombre esta vacio
+    }else {
+        $pdf->Ln(5);
+        $pdf->SetFont('courier', '', 12);
+        $nombre = '25-OH-VITAMINA D TOTAL (D2 + D3)            : '.$_POST['result25H'].' ng/ml'."\n";
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
+        $pdf->SetFont('courier', '', 8);
+        $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: Nivel optimo: mayor de 30 ng/ml'."\n".'                              Insuficiente: entre 20-30 ng/ml'."\n".'                              Deficiente: menor de 20 ng/ml';
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+        $pdf->SetFont('courier', '', 12);
+    }
+
+    if($pdf->getY()+5>250){
+        $pdf->addPage();
+        $pdf->Ln(7);
+      }
+      
+      if(!isset($_POST['checkATG'])) { 
+    }else {
+        $pdf->Ln(5);   
+        $nombre = 'ANTIC. ANTI-TIROGLOBULINA SENSIBLE (ATG)     : '.$_POST['resultATG'].' U/ml'."\n";
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+        $pdf->SetFont('courier', '', 8);
+        $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: hasta 60 U/ml'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 12);
     }
@@ -1335,13 +1390,13 @@ if(!isset($_POST['checkDAEBH'])) {
         $pdf->Ln(7);
       }
 
-    if(!isset($_POST['checkTSH'])) { 
+      if(!isset($_POST['checkATPO'])) { 
     }else {
-        $pdf->Ln(5);
-        $nombre = 'TSH - TIROTROFINA                    : '.$_POST['resultTSH'].' uUI/ml'."\n";
+        $pdf->Ln(5);   
+        $nombre = 'ANTIC. ANTI TIROPEROXIDASA TIROIDEA (ATPO)   : '.$_POST['resultATPO'].' U/ml'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 8);
-        $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: Adultos: 0.35 - 5.50 uUI/ml. uUI/ml'."\n";
+        $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: hasta 60 U/ml'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 12);
     }
@@ -1353,10 +1408,10 @@ if(!isset($_POST['checkDAEBH'])) {
       if(!isset($_POST['checkTiroxinaL'])) { 
     }else {
         $pdf->Ln(5);                        
-        $nombre = 'TIROXINA LIBRE                       : '.$_POST['resultTiroxinaL'].' ng/dl'."\n";
+        $nombre = 'TIROXINA -t4 LIBRE                   : '.$_POST['resultTiroxinaL'].' ng/dl'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 8);
-        $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: Adultos: 0.89 a 1.76 ng/dl'."\n";
+        $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: 1-23 meses: 0.94-1.44 ng/dl'."\n".'                              2-12 años: 0.86-1.40 ng/dl'."\n".'                              13-21 años: 0.83-1.76 ng/dl'."\n".'                              Adultos: 0.89-1.76 ng/dl'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 12);
     }
@@ -1368,10 +1423,10 @@ if(!isset($_POST['checkDAEBH'])) {
       if(!isset($_POST['checkTiroxina'])) { 
     }else {
         $pdf->Ln(5);                        
-        $nombre = 'TIROXINA                             : '.$_POST['resultTiroxina'].' ug/dl'."\n";
+        $nombre = 'TIROXINA -t4 TOTAL                   : '.$_POST['resultTiroxina'].' ng/dl'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 8);
-        $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: Adultos: 5.1 a 14.1 ug/dl'."\n";
+        $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: 1-23 meses: 6.0-13.2 ng/dl'."\n".'                              2-12 años: 5.5-12.1 ng/dl'."\n".'                              13-21 años: 5.5-11.1 ng/dl'."\n".'                              Adultos: 4.5-10.9 ng/dl'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 12);
     }
@@ -1383,10 +1438,10 @@ if(!isset($_POST['checkDAEBH'])) {
       if(!isset($_POST['checkT3'])) { 
     }else {
         $pdf->Ln(5);   
-        $nombre = 'T3 - TRIIODOTIRONINA                 : '.$_POST['resultT3'].' ng/ml'."\n";
+        $nombre = 'TRIIODOTIRONINA - T3                 : '.$_POST['resultT3'].' ng/ml'."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 8);
-        $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: 1-23 meses: 1.17-2.39 ng/ml'."\n".'                              2-12 años: 1.05-2.07 ng/ml'."\n".'                              13-21 años: 0.86-1.92 ng/ml'."\n".'                              Adultos: 0.60-1.81 ng/ml'."\n";
+        $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: 1-23 meses: 1.17-2.39 ng/ml'."\n".'                              2-12 años: 1.05-2.07 ng/ml'."\n".'                              13-21 años: 0.86-1.92 ng/ml'."\n".'                              Adultos: 0.60-1.81 ng/dl'."\n";                             
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->SetFont('courier', '', 12);
     }
@@ -1394,6 +1449,22 @@ if(!isset($_POST['checkDAEBH'])) {
         $pdf->addPage();
         $pdf->Ln(7);
       }
+      
+    if(!isset($_POST['checkTSH'])) { 
+    }else {
+        $pdf->Ln(5);
+        $nombre = 'TIROTROFINA - TSH                    : '.$_POST['resultTSH'].' uUI/ml'."\n";
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+        $pdf->SetFont('courier', '', 8);
+        $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: 14 meses: 0.49-7.70 uUI/ml'."\n".'                              5 años: 0.42-6.60 uUL/ml'."\n".'                              14 años: 0.34-5.34 uUL/ml'."\n".'                              Adultos: 0.35-5.50 uUI/ml'."\n";
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+        $pdf->SetFont('courier', '', 12);
+    }
+    if($pdf->getY()+5>250){
+        $pdf->addPage();
+        $pdf->Ln(7);
+      }
+
 
       if(!isset($_POST['checkFSH'])) { 
     }else {
@@ -1492,20 +1563,6 @@ if(!isset($_POST['checkDAEBH'])) {
         $pdf->Ln(7);
       }
 
-      if(!isset($_POST['checkAATU'])) { 
-    }else {
-        $pdf->Ln(5);   
-        $nombre = 'Ac.ANTI-TIROGLOBULINA Ultrasensible  : '.$_POST['resultAATU'].' UI/ml'."\n";
-        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-        $pdf->SetFont('courier', '', 8);
-        $nombre = '         Método: Electroquimioluminiscencia'."\n".'         Valor de referencia: VN: hasta 115 UI/ml'."\n";
-        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-        $pdf->SetFont('courier', '', 12);
-    }
-    if($pdf->getY()+5>250){
-        $pdf->addPage();
-        $pdf->Ln(7);
-      }
 
       if(!isset($_POST['checkSD'])) { 
     }else {
@@ -2048,10 +2105,45 @@ if($pdf->getY()+5>250){
   if(!isset($_POST['checkPE'])) { 
 }else {
     $pdf->Ln(5);
-    $nombre = 'PROTEINOGROMA ELECTROFORETICO        : '.$_POST['resultPE']."\n";
+    $pdf->SetFont('courier', 'B', 12);
+    $nombre = 'PROTEINOGROMA ELECTROFORETICO'."\n";
     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
     $pdf->SetFont('courier', '', 8);
-    $nombre = '        Metodo: Método Electroforesis capilar'."\n";
+    $nombre = '        Metodo: Método Electroforesis capilar (suero)'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+}
+
+if($pdf->getY()+5>250){
+    $pdf->addPage();
+    $pdf->Ln(7);
+  }
+
+if(!isset($_POST['checkProteinasPE'])) { 
+}else {
+    $pdf->Ln(5);
+    $nombre = 'PROTEINAS TOTALES : '.$_POST['resultProteinasPE'].' g%'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+}
+
+if($pdf->getY()+5>250){
+    $pdf->addPage();
+    $pdf->Ln(7);
+  }
+
+if(!isset($_POST['checkAlbuminaPE'])) { 
+}else {
+    $pdf->Ln(5);
+    $nombre = 'ALBUMINA          : '.$_POST['resultAlbuminaPE'].' g%'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '        Valor de referencia: 3.57 - 5.48 g%'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+    $nombre = '                  '.$_POST['resultAlbuminaPE1'].' %'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '        Valor de referencia: 55.8 - 66.1 %'."\n";
     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
     $pdf->SetFont('courier', '', 12);
 }
@@ -2064,8 +2156,18 @@ if($pdf->getY()+5>250){
   if(!isset($_POST['checkA1G'])) { 
 }else {
     $pdf->Ln(5);
-    $nombre = 'Alfa -1 globulina                    : '.$_POST['resultA1G']."\n";
+    $nombre = 'Alfa-1 GLOBULINA  : '.$_POST['resultA1G1'].' g%'."\n";
     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '        Valor de referencia: 0.19 - 0.41 g%'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+    $nombre = '                    '.$_POST['resultA1G2'].' %'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '        Valor de referencia: 2.9 - 4.9 %'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
 }
 
 if($pdf->getY()+5>250){
@@ -2076,8 +2178,18 @@ if($pdf->getY()+5>250){
   if(!isset($_POST['checkA2G'])) { 
 }else {
     $pdf->Ln(5);
-    $nombre = 'Alfa -2 globulina                    : '.$_POST['resultA2G']."\n";
+    $nombre = 'Alfa-2 GLOBULINA  : '.$_POST['resultA2G1'].' g%'."\n";
     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '        Valor de referencia: 0.45 - 0.98 g%'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+    $nombre = '                    '.$_POST['resultA2G2'].' %'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '        Valor de referencia: 7.1 - 11.8 %'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
 }
 
 if($pdf->getY()+5>250){
@@ -2085,29 +2197,70 @@ if($pdf->getY()+5>250){
     $pdf->Ln(7);
   }
 
-  if(!isset($_POST['checkBG'])) { 
+  if(!isset($_POST['checkB1G'])) { 
 }else {
     $pdf->Ln(5);
-    $nombre = 'Beta- globulinas                     : '.$_POST['resultBG']."\n";
+    $nombre = 'Beta-1 GLOBULINA  : '.$_POST['resultB1G1']."\n";
     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '        Valor de referencia: 0.30 - 0.59 g%'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+    $nombre = '                    '.$_POST['resultB1G2'].' %'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '        Valor de referencia: 4.7 - 7.2 %'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
 }
 
 if($pdf->getY()+5>250){
     $pdf->addPage();
     $pdf->Ln(7);
   }
+  if(!isset($_POST['checkB2G'])) { 
+}else {
+    $pdf->Ln(5);
+    $nombre = 'Beta-2 GLOBULINA  : '.$_POST['resultB2G1']."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '        Valor de referencia: 0.20 - 0.55 g%'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+    $nombre = '                    '.$_POST['resultB2G2'].' %'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '        Valor de referencia: 3.2 - 6.5 %'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+}
 
+if($pdf->getY()+5>250){
+    $pdf->addPage();
+    $pdf->Ln(7);
+  }
   if(!isset($_POST['checkGG'])) { 
 }else {
     $pdf->Ln(5);
-    $nombre = 'Gamma globulinas                     : '.$_POST['resultGG']."\n";
+    $nombre = 'Gamma GLOBULINA   : '.$_POST['resultGG1']."\n";
     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '        Valor de referencia: 0.71 - 1.56 g%'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+    $nombre = '                    '.$_POST['resultGG2'].' %'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '        Valor de referencia: 11.1 - 18.8 %'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
 }
 
 if($pdf->getY()+5>250){
     $pdf->addPage();
     $pdf->Ln(7);
   }
+  
 
 //-------------------------------------------------------------------------------------------
 if(!isset($_POST['checkMycoplasma'])) { 
@@ -2403,16 +2556,34 @@ if($pdf->getY()+5>250){
     $pdf->Ln(7);
   }
 
-  if(!isset($_POST['checkHBS'])) { // Comprobamos si el nombre esta vacio
+  if(!isset($_POST['checkHBSI'])) { // Comprobamos si el nombre esta vacio
     // Aqui saltaria el error ya que el campo nombre esta vacio
 }else {
     $pdf->Ln(5);
     $nombre = 'Hepatitis B Antigeno de Superficie (HBS Ag)'."\n";
     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
-    $nombre = 'Resultado                            :'.$_POST['resultHBS']."\n";
+    $nombre = 'Resultado                            :'.$_POST['resultHBSI']."\n";
     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
     $pdf->SetFont('courier', '', 8);
-    $nombre = '         Método: Elisa'."\n".'         Valor de referencia: Negativo'."\n";
+    $nombre = '         Método: Inmunocromatografico'."\n".'         Valor de referencia: Negativo'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+}
+if($pdf->getY()+5>250){
+    $pdf->addPage();
+    $pdf->Ln(7);
+  }
+
+  if(!isset($_POST['checkHBSQ'])) { // Comprobamos si el nombre esta vacio
+    // Aqui saltaria el error ya que el campo nombre esta vacio
+}else {
+    $pdf->Ln(5);
+    $nombre = 'Hepatitis B Antigeno de Superficie (HBS Ag)'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
+    $nombre = 'Resultado                            :'.$_POST['resultHBSQ']."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: <10'."\n";
     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
     $pdf->SetFont('courier', '', 12);
 }
@@ -2676,10 +2847,27 @@ if($pdf->getY()+5>250){
 }else {
     $pdf->Ln(5);
     $pdf->SetFont('courier', '', 12);
-    $nombre = 'PROTEINA C REACTIVA                  :'.$_POST['resultProteinaC']."\n";
+    $nombre = 'PROTEINA C REACTIVA DE AMPLIO RANGO         :'.$_POST['resultProteinaC']." mg/dl\n";
     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
     $pdf->SetFont('courier', '', 8);
-    $nombre = '         Método: Test Latex'."\n";
+    $nombre = '         Método: Inmunoturbidimetria potenciado con latex'."\n".'         Valor de referencia: hasta 0.50 mg/dl'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+}
+if($pdf->getY()+5>250){
+    $pdf->addPage();
+    $pdf->Ln(7);
+  }
+
+  if(!isset($_POST['checkSifilis'])) { // Comprobamos si el nombre esta vacio
+    // Aqui saltaria el error ya que el campo nombre esta vacio
+}else {
+    $pdf->Ln(5);
+    $pdf->SetFont('courier', '', 12);
+    $nombre = 'SIFILIS CUALITATIVA (AC.ANTI TREP. PALLIDUM):'.$_POST['resultSifilis']." mg/dl\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '         Método: Quimio luminiscencia'."\n".'         Valor de referencia: Menor de 0.90: No Reactivo'."\n".'                              Entre 0.90 y 1.09: Indeterminado'."\n".'                              Mayor de 1.09: Reactivo'."\n";
     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
     $pdf->SetFont('courier', '', 12);
 }
@@ -2756,6 +2944,23 @@ if($pdf->getY()+5>250){
     $pdf->Ln(7);
   }
   
+  if(!isset($_POST['checkVDRL'])) { // Comprobamos si el nombre esta vacio
+    // Aqui saltaria el error ya que el campo nombre esta vacio
+}else {
+    $pdf->Ln(5);
+    $pdf->SetFont('courier', '', 12);
+    $nombre = 'V.D.R.L TEST                         :  '.$_POST['resultVDRL']."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '         Método: Floculacion'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+}
+if($pdf->getY()+5>250){
+    $pdf->addPage();
+    $pdf->Ln(7);
+  }
+  
 //------------------------------------------------------------------------------------------
 
   if(!isset($_POST['checkBAAR'])) { // Comprobamos si el nombre esta vacio
@@ -2775,6 +2980,7 @@ if($pdf->getY()+5>250){
     $pdf->Ln(7);
   }
 
+ 
   //--------------------------------------------------------------------------------------------
   if(!isset($_POST['checkPTH'])) { // Comprobamos si el nombre esta vacio
     // Aqui saltaria el error ya que el campo nombre esta vacio
@@ -2788,23 +2994,7 @@ if($pdf->getY()+5>250){
     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
     $pdf->SetFont('courier', '', 12);
 }
-if($pdf->getY()+5>250){
-    $pdf->addPage();
-    $pdf->Ln(7);
-  }
 
-  if(!isset($_POST['check25H'])) { // Comprobamos si el nombre esta vacio
-    // Aqui saltaria el error ya que el campo nombre esta vacio
-}else {
-    $pdf->Ln(5);
-    $pdf->SetFont('courier', '', 12);
-    $nombre = '25 Hidroxi VITAMINA D                : '.$_POST['result25H'].' ng/ml'."\n";
-    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
-    $pdf->SetFont('courier', '', 8);
-    $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: 20 - 100 ng/ml'."\n";
-    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-    $pdf->SetFont('courier', '', 12);
-}
 if($pdf->getY()+5>250){
     $pdf->addPage();
     $pdf->Ln(7);
@@ -2837,7 +3027,24 @@ if(!isset($_POST['checkHIV'])) { // Comprobamos si el nombre esta vacio
     $nombre = 'ANTICUERPOS ANTI VIRUS DE LA INMUNODEFICIENCIA HUMANA H.I.V. (I+II)'."\n".'Resultado                            : '.$_POST['resultHIV']."\n";
     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
     $pdf->SetFont('courier', '', 8);
-    $nombre = '         Método: Elisa'."\n".'         Valor de referencia: NO REACTIVO'."\n".'         NOTA: Muestra reactivas o en zona gris deben confirmarse con P24, WB y/o RNA-HIV'."\n";
+    $nombre = '         Método: Inmunocromatografico'."\n".'         Valor de referencia: NO REACTIVO'."\n".'         NOTA: Muestra reactivas o en zona gris deben confirmarse con P24, WB y/o RNA-HIV'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+}
+if($pdf->getY()+5>250){
+    $pdf->addPage();
+    $pdf->Ln(7);
+  }
+//--------------------------------------------------------------------------
+if(!isset($_POST['checkInsulina'])) { // Comprobamos si el nombre esta vacio
+    // Aqui saltaria el error ya que el campo nombre esta vacio
+}else {
+    $pdf->Ln(5);
+    $pdf->SetFont('courier', '', 12);
+    $nombre = 'Insulina (Basal)                     : '.$_POST['resultInsulina'].' UI/ml'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '         Método: Quimioluminiscencia'."\n".'         Valor de referencia: 3.0 - 25.0 UI/ml'."\n";
     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
     $pdf->SetFont('courier', '', 12);
 }
@@ -2846,6 +3053,89 @@ if($pdf->getY()+5>250){
     $pdf->Ln(7);
   }
 
+  if(!isset($_POST['checkHoma'])) { // Comprobamos si el nombre esta vacio
+    // Aqui saltaria el error ya que el campo nombre esta vacio
+}else {
+    $pdf->Ln(5);
+    $pdf->SetFont('courier', '', 12);
+    $nombre = 'Indice de resistencia a la insulina (HOMA-IR) : '.$_POST['resultHoma']."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '         Valor de referencia: inferior a 2.15'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+}
+if($pdf->getY()+5>250){
+    $pdf->addPage();
+    $pdf->Ln(7);
+  }
+
+  if(!isset($_POST['checkHomocisteina'])) { // Comprobamos si el nombre esta vacio
+    // Aqui saltaria el error ya que el campo nombre esta vacio
+}else {
+    $pdf->Ln(5);
+    $pdf->SetFont('courier', '', 12);
+    $nombre = 'Homocisteina                         : '.$_POST['resultHomocisteina'].' umol/l'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '         Método: Espectrofotometria enzimatica U.V.'."\n".'         Valor de referencia: <15 umol/l'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+}
+if($pdf->getY()+5>250){
+    $pdf->addPage();
+    $pdf->Ln(7);
+  }
+//--------------------------------------------------------------------------------------------
+if(!isset($_POST['checkSOMF'])) { // Comprobamos si el nombre esta vacio
+    // Aqui saltaria el error ya que el campo nombre esta vacio
+}else {
+    $pdf->Ln(5);
+    $pdf->SetFont('courier', 'B', 12);
+    $nombre = 'SOMF - Sangre Oculta en Materia Fecal : '."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
+    $pdf->SetFont('courier', '', 12);
+    $nombre = '                                        '.$_POST['resultSOMF']."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
+}
+if($pdf->getY()+5>250){
+    $pdf->addPage();
+    $pdf->Ln(7);
+  }
+
+  if(!isset($_POST['checkDMF'])) { // Comprobamos si el nombre esta vacio
+    // Aqui saltaria el error ya que el campo nombre esta vacio
+}else {
+    $pdf->Ln(5);
+    $pdf->SetFont('courier', 'B', 12);
+    $nombre = 'DMF - Directo Materia Fecal             '."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
+    $pdf->SetFont('courier', '', 12);
+    $nombre = '                                        '.$_POST['resultDMF']."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
+}
+if($pdf->getY()+5>250){
+    $pdf->addPage();
+    $pdf->Ln(7);
+  }
+
+  if(!isset($_POST['checkPS'])) { // Comprobamos si el nombre esta vacio
+    // Aqui saltaria el error ya que el campo nombre esta vacio
+}else {
+    $pdf->Ln(5);
+    $pdf->SetFont('courier', 'B', 12);
+    $nombre = 'PARASITOLOGICO SERIADO'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
+    $pdf->SetFont('courier', '', 12);
+    $nombre = '     - Test de Graham           : '.$_POST['resultTestGraham']."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
+    $nombre = '     - Materia Fecal            : '.$_POST['resultMateriaFecal']."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0);
+}
+if($pdf->getY()+5>250){
+    $pdf->addPage();
+    $pdf->Ln(7);
+  }
 //--------------------------------------------------------------------------------------------
 /*
 
@@ -2880,5 +3170,3 @@ if(empty($_POST['campotexto'])) {
 //Close and output PDF document
 $conn->close();
 $pdf->Output('protocolo.pdf', 'I');
-
-?>
