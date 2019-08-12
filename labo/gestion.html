@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
+<?php session_start() ?>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,7 +48,7 @@
           </div>
 
           <div class="form-group row">            
-            <label for="nombreapellido" class="col-form-label">Nombre y apellido:</label>
+            <label for="nombreapellido" class="col-form-label">Nombre y apellido: <?php echo $_SESSION['nombreapellido']; ?></label>
             <div class="col">
               <?php
                   session_start();

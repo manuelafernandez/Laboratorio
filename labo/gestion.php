@@ -16,7 +16,6 @@ class MYPDF extends TCPDF {
       // Set font
       $this->SetFont('courier', '', 20);
       // Title
-      //$this->MultiCell(0, 15, 'Laboratorio de Análisis Clínicos', 0, 'C', 0, 1, '', '', false);
       $this->Write(0, 'Laboratorio de Análisis Clínicos', '', 0, 'R', true, 0, false, false, 0);
       //Subtitulo
       $this->SetFont('courier', '', 10);
@@ -75,98 +74,40 @@ $pdf->SetFont('courier', '', 10);
 // add a page
 $pdf->AddPage();
 
-//recupero la informacion de la sesion
-/*
-$nombreapellido = 'Paciente: '.$_SESSION["nombreapellido"];
-$documento = 'DNI: '.$_SESSION["documento"];
 $protocolo = 'Protocolo N: ';
+
+if(!empty($_POST['doc']))
+    $protocolo = 'Protocolo N: '.$_POST["numeroprotocolo"];
+    
+$nombreapellido = 'Paciente: '.$_SESSION["nombreapellido"];
+
 $dra = 'Solicita Dr/a.: ';
 if(!empty($_POST['doc']))
-    $dra = 'Solicita Dr/a.: '.$_POST['doc'];   
-    
-$fe=date("m/d/Y");
-$fecha = 'Fecha: '.$fe;
-$mail = 'E-mail: '.$_SESSION["mail"];
+    $dra = 'Solicita Dr/a.: '.$_POST['doc']; 
+$documento = 'DNI: '.$_SESSION["documento"].'                           '.$dra;
+
+//$fe=date("d/m/Y");
+
+$fecha = 'Fecha: ';
+if(!empty($_POST['fecha'])){   
+    $fe = $_POST['fecha'];
+    $f =  date("d/m/Y", strtotime($_POST['fecha']));
+    $fecha = 'Fecha: '.$f;
+}
+$mail = $fecha.'                       '.$protocolo;
 
 $pdf->Ln(5);
 $pdf->Write(0, $nombreapellido, '', 0, '', true, 0, false, false, 0);
 $pdf->Write(0, $documento, '', 0, '', true, 0, false, false, 0);
-$pdf->Write(0, $mail, '', 0, '', true, 0, false, false, 0);
-
-$pdf->Ln(5);
-$pdf->Write(0, $protocolo, '', 0, '', true, 0, false, false, 0);
-
-if(!empty($_POST['doc']))
-    $dra = 'Solicita Dr/a.: '.$_POST['doc'];   
-
-$pdf->Write(0, $dra, '', 0, '', true, 0, false, false, 0);
-$pdf->Cell(0, 0, $fecha, 'B', false, 'L', 0, '', 0, false, 'T', 'M');  
-*/
-
-//recupero la informacion de la sesion
-/*
-$sql = "SELECT numprotocolo FROM protocolo WHERE id=1";
-$resultado = $conn->query($sql);
-
-if ($resultado->num_rows > 0) {
-   while($row = $resultado->fetch_assoc()) {
-        $numprot = $row["numprotocolo"];
-   }
-}
-else {
-    $numprot=5;
-    $id=1;
-    $sql = "INSERT INTO protocolo(numprotocolo,id) VALUES ('$numprot','$id')";
-    $conn->query($sql);
-}
-
-$sql = "UPDATE protocolo SET numprotocolo=$numprot+1 WHERE id=1";
-
-if (mysqli_query($conn, $sql)) {
-} else {
-    echo "Error en el numero de protocolo: " . mysqli_error($conn);
-}
-*/
-// sql to delete a record
-//$sql = "DELETE FROM protocolo WHERE id=1";
-
-
-    $protocolo = 'Protocolo N: ';
-
-    if(!empty($_POST['doc']))
-        $protocolo = 'Protocolo N: '.$_POST["numeroprotocolo"];
-        
-    $nombreapellido = 'Paciente: '.$_SESSION["nombreapellido"];
-
-    $dra = 'Solicita Dr/a.: ';
-    if(!empty($_POST['doc']))
-        $dra = 'Solicita Dr/a.: '.$_POST['doc']; 
-    $documento = 'DNI: '.$_SESSION["documento"].'                           '.$dra;
-
-    //$fe=date("d/m/Y");
-
-    $fecha = 'Fecha: ';
-    if(!empty($_POST['fecha'])){   
-        $fe = $_POST['fecha'];
-        $f =  date("d/m/Y", strtotime($_POST['fecha']));
-        $fecha = 'Fecha: '.$f;
-    }
-    $mail = $fecha.'                       '.$protocolo;
-
-    $pdf->Ln(5);
-    $pdf->Write(0, $nombreapellido, '', 0, '', true, 0, false, false, 0);
-    $pdf->Write(0, $documento, '', 0, '', true, 0, false, false, 0);
-    $pdf->Cell(0, 0, $mail, 'B', false, 'L', 0, '', 0, false, 'T', 'M');  
+$pdf->Cell(0, 0, $mail, 'B', false, 'L', 0, '', 0, false, 'T', 'M');  
 
 //------------------------------------------------------------
 
 $pdf->Ln(1);
  
-if(!isset($_POST['checkHemograma'])) { // Comprobamos si el nombre esta vacio
-    // Aqui saltaria el error ya que el campo nombre esta vacio
+if(!isset($_POST['checkHemograma'])) { 
 }
 else {
-    // set font
     $pdf->Ln(5);
     $pdf->SetFont('helvetica', 'B', 14);
     $nombre = 'HEMOGRAMA';
@@ -194,54 +135,68 @@ else {
     $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
     $pdf->Ln(4);
 
-    $result = ($_POST['resultGlobBlancos']*$_POST['resultBasofilosR'])/100;
-    $nombre = 'Basofilos        :                   '.$_POST['resultBasofilosR'].' %            '.$result;
-    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-
-    $result = ($_POST['resultGlobBlancos']*$_POST['resultEosinofilosR'])/100;
-    $nombre = 'Eosinofilos      :                   '.$_POST['resultEosinofilosR'].' %            '.$result;
-    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-
-    $result = ($_POST['resultGlobBlancos']*$_POST['resultNeutrofilosCR'])/100;
-    $nombre = 'Neutr.en Cayado  :                   '.$_POST['resultNeutrofilosCR'].' %            '.$result;
-    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-
-    $result = ($_POST['resultGlobBlancos']*$_POST['resultNeutrofilosSR'])/100;
-    $nombre = 'Neutr.Segmentados:                   '.$_POST['resultNeutrofilosSR'].' %            '.$result;
-    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-
-    $result = ($_POST['resultGlobBlancos']*$_POST['resultLinfocitosR'])/100;
-    $nombre = 'Linfocitos       :                   '.$_POST['resultLinfocitosR'].' %            '.$result;
-    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-
-    $result = ($_POST['resultGlobBlancos']*$_POST['resultMonocitosR'])/100;
-    $nombre = 'Monocitos        :                   '.$_POST['resultMonocitosR'].' %            '.$result;
-    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    if(!empty($_POST['resultGlobBlancos']) && !empty($_POST['resultBasofilosR'])){
+        $result = ($_POST['resultGlobBlancos']*$_POST['resultBasofilosR'])/100;
+        $nombre = 'Basofilos        :                   '.$_POST['resultBasofilosR'].' %            '.$result;
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
     }
+
+    if(!empty($_POST['resultGlobBlancos']) && !empty($_POST['resultEosinofilosR'])){
+        $result = ($_POST['resultGlobBlancos']*$_POST['resultEosinofilosR'])/100;
+        $nombre = 'Eosinofilos      :                   '.$_POST['resultEosinofilosR'].' %            '.$result;
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    }
+
+    if(!empty($_POST['resultGlobBlancos']) && !empty($_POST['resultNeutrofilosCR'])){
+        $result = ($_POST['resultGlobBlancos']*$_POST['resultNeutrofilosCR'])/100;
+        $nombre = 'Neutr.en Cayado  :                   '.$_POST['resultNeutrofilosCR'].' %            '.$result;
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    }
+
+    if(!empty($_POST['resultGlobBlancos']) && !empty($_POST['resultNeutrofilosSR'])){
+        $result = ($_POST['resultGlobBlancos']*$_POST['resultNeutrofilosSR'])/100;
+        $nombre = 'Neutr.Segmentados:                   '.$_POST['resultNeutrofilosSR'].' %            '.$result;
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    }
+
+    if(!empty($_POST['resultGlobBlancos']) && !empty($_POST['resultLinfocitosR'])){
+        $result = ($_POST['resultGlobBlancos']*$_POST['resultLinfocitosR'])/100;
+        $nombre = 'Linfocitos       :                   '.$_POST['resultLinfocitosR'].' %            '.$result;
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    }
+
+    if(!empty($_POST['resultGlobBlancos']) && !empty($_POST['resultMonocitosR'])){
+        $result = ($_POST['resultGlobBlancos']*$_POST['resultMonocitosR'])/100;
+        $nombre = 'Monocitos        :                   '.$_POST['resultMonocitosR'].' %            '.$result;
+        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    }
+}
 
 if($pdf->getY()+5>250){
     $pdf->addPage();
     $pdf->Ln(7);
-  }
+}
 
-    if(!isset($_POST['checkPlaquetas'])) { 
-    }else {
-        $pdf->Ln(5);
-        $nombre = 'RECUENTO DE PLAQUETAS  : '.$_POST['resultPlaquetas'].' mm3';
-        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-        $pdf->SetFont('courier', '', 8);
-        $nombre = '        Método: Analizador Mindray BC-5380'."\n".'        Valor de referencia: 150.000 A 350.000 mm3 mm3';
-        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-        $pdf->SetFont('courier', '', 12);
-    }
+if(!isset($_POST['checkPlaquetas'])) { 
+}
+else {
+    $pdf->Ln(5);
+    $nombre = 'RECUENTO DE PLAQUETAS  : '.$_POST['resultPlaquetas'].' mm3';
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '        Método: Analizador Mindray BC-5380'."\n".'        Valor de referencia: 150.000 A 350.000 mm3 mm3';
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+}
 
 if($pdf->getY()+5>250){
     $pdf->addPage();
     $pdf->Ln(7);
-  }
+}
 
-  if(!isset($_POST['checkMMicroscopica'])) { 
-}else {
+if(!isset($_POST['checkMMicroscopica'])) { 
+}
+else {
     $pdf->Ln(5);
     $pdf->SetFont('courier', '', 12);
     $nombre = 'Morfologia microscopica  : '.$_POST['resultMMicroscopica'];
@@ -249,76 +204,79 @@ if($pdf->getY()+5>250){
 }
 
 if($pdf->getY()+5>250){
-$pdf->addPage();
-$pdf->Ln(7);
+    $pdf->addPage();
+    $pdf->Ln(7);
 }
 
-    if(!isset($_POST['checkEritrosedimentacionP'])) { 
-        if(!isset($_POST['checkEritrosedimentacionS'])) { 
-        }else {
-            $pdf->SetFont('courier', '', 12);
-            $pdf->Ln(5);
-            $nombre = 'ERITROSEDIMENTACION  (Método Westergreen)';
-            $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-            $pdf->Ln(4);
-            $nombre = 'Segunda hora             : '.$_POST['resultEritrosedimentacionS']."\n";
-            $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-        }
-    }else {
+if(!isset($_POST['checkEritrosedimentacionP'])) { 
+    if(!isset($_POST['checkEritrosedimentacionS'])) { 
+    }
+    else {
         $pdf->SetFont('courier', '', 12);
         $pdf->Ln(5);
         $nombre = 'ERITROSEDIMENTACION  (Método Westergreen)';
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
         $pdf->Ln(4);
-        $nombre = 'Primera hora             : '.$_POST['resultEritrosedimentacionP']."\n";
+        $nombre = 'Segunda hora             : '.$_POST['resultEritrosedimentacionS']."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-
-        if(!isset($_POST['checkEritrosedimentacionS'])) { 
-        }else {
-            $nombre = 'Segunda hora             : '.$_POST['resultEritrosedimentacionS']."\n";
-            $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-        }
     }
-
-
-
-    if($pdf->getY()+5>250){
-        $pdf->addPage();
-        $pdf->Ln(7);
-      }
-
+}
+else {
     $pdf->SetFont('courier', '', 12);
-    if(!isset($_POST['checkGlucemia'])) { 
+    $pdf->Ln(5);
+    $nombre = 'ERITROSEDIMENTACION  (Método Westergreen)';
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->Ln(4);
+    $nombre = 'Primera hora             : '.$_POST['resultEritrosedimentacionP']."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+
+    if(!isset($_POST['checkEritrosedimentacionS'])) { 
     }else {
-        $pdf->Ln(5);
-        $nombre = 'GLUCEMIA                 : '.$_POST['resultGlucemia'].' mg/dl'."\n";
+        $nombre = 'Segunda hora             : '.$_POST['resultEritrosedimentacionS']."\n";
         $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-        $pdf->SetFont('courier', '', 8);
-        $nombre = '        Método: Enzimatico GOD-POD'."\n".'        Valor de referencia: de 70 a 110 mg/dl';
-        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-        $pdf->SetFont('courier', '', 12);
     }
+}
 
-    if($pdf->getY()+5>250){
-        $pdf->addPage();
-        $pdf->Ln(7);
-      }
+if($pdf->getY()+5>250){
+    $pdf->addPage();
+    $pdf->Ln(7);
+}
 
-    if(!isset($_POST['checkUremia'])) { 
-    }else {
-        $pdf->Ln(5);
-        $nombre = 'UREMIA                   : '.$_POST['resultUremia'].' mg/dl'."\n";
-        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-        $pdf->SetFont('courier', '', 8);
-        $nombre = '        Método: CINETICO UV'."\n".'        Valor de referencia: de 15 a 55 mg/dl';
-        $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
-        $pdf->SetFont('courier', '', 12);
-    }
+$pdf->SetFont('courier', '', 12);
+    
+if(!isset($_POST['checkGlucemia'])) { 
+}
+else {
+    $pdf->Ln(5);
+    $nombre = 'GLUCEMIA                 : '.$_POST['resultGlucemia'].' mg/dl'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '        Método: Enzimatico GOD-POD'."\n".'        Valor de referencia: de 70 a 110 mg/dl';
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+}
 
-    if($pdf->getY()+5>250){
-        $pdf->addPage();
-        $pdf->Ln(7);
-      }
+if($pdf->getY()+5>250){
+    $pdf->addPage();
+    $pdf->Ln(7);
+}
+
+if(!isset($_POST['checkUremia'])) { 
+}
+else {
+    $pdf->Ln(5);
+    $nombre = 'UREMIA                   : '.$_POST['resultUremia'].' mg/dl'."\n";
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 8);
+    $nombre = '        Método: CINETICO UV'."\n".'        Valor de referencia: de 15 a 55 mg/dl';
+    $pdf->Write(0, $nombre, '', 0, '', true, 0, false, false, 0); 
+    $pdf->SetFont('courier', '', 12);
+}
+
+if($pdf->getY()+5>250){
+    $pdf->addPage();
+    $pdf->Ln(7);
+}
 
     if(!isset($_POST['checkAUrico'])) { 
     }else {
@@ -3136,21 +3094,6 @@ if($pdf->getY()+5>250){
     $pdf->addPage();
     $pdf->Ln(7);
   }
-//--------------------------------------------------------------------------------------------
-/*
-
-// set font
-$pdf->SetFont('courier', '', 10);
-
-// add a page
-$pdf->AddPage();
-
-$pdf->Ln(5);
-$pdf->Write(0, $nombreapellido, '', 0, '', true, 0, false, false, 0);
-$pdf->Write(0, $documento, '', 0, '', true, 0, false, false, 0);
-$pdf->Cell(0, 0, $protocolo, 'B', false, 'L', 0, '', 0, false, 'T', 'M');  
-
-*/
 
 
 // ---------------------------------------------------------
